@@ -2,7 +2,8 @@ MusicHUB API App
 ==============
 
 ## ¿Qué es MusicHUB?
-Proximamente
+
+MusicHUB es una red social para músicos que brinda oportunidades para encontrar banda, relacionarse con otros músicos, mostrar material de tu banda y encontrar lugares para tocar.
 
 ## Tecnologías involucradas
 * [Grails 3.0.1] (http://grails.org)
