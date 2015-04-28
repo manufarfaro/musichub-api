@@ -6,6 +6,9 @@
 # web application files
 /web-app/WEB-INF/classes
 
+# Gradle metadata
+.gradle/
+
 # default HSQL database files for production mode
 /prodDb.*
 
@@ -31,3 +34,13 @@
 
 # "temporary" build files
 /target
+/build/
+/bin/
+
+# Avoid Eclipse/Idea medatada
+.classpath
+.idea/
+.project
+.settings/
+musichub-api.iml
+
