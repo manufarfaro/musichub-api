@@ -35,6 +35,7 @@
 # "temporary" build files
 /target
 /build/
+/build/.dependencies
 /bin/
 
 # Avoid Eclipse/Idea medatada

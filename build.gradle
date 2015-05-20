@@ -54,6 +54,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
+	compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.security.oauth:spring-security-oauth2:2.0.7.RELEASE"
+
     compile "org.grails:grails-dependencies"
     compile "org.grails:grails-web-boot"
 
@@ -63,6 +66,7 @@ dependencies {
 
     runtime "org.grails.plugins:asset-pipeline"
     runtime "org.grails.plugins:scaffolding"
+	runtime group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
