@@ -8,7 +8,8 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.1.1'
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.1.1"
+		classpath "com.bertramlabs.plugins:sass-asset-pipeline:2.1.1"
     }
 }
 
@@ -65,6 +66,7 @@ dependencies {
     compile "org.hibernate:hibernate-ehcache"
 
     runtime "org.grails.plugins:asset-pipeline"
+	runtime "com.bertramlabs.plugins:sass-asset-pipeline:2.1.1"
     runtime "org.grails.plugins:scaffolding"
 	runtime group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 

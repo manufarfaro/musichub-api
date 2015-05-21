@@ -1,0 +1,26 @@
+{
+  "name": "musichub-api",
+  "version": "0.1.0",
+  "homepage": "https://github.com/manufarfaro/musichub-api",
+  "authors": [
+    "manufarfaro <manufarfaro@gmail.com>"
+  ],
+  "description": "MusicHub RestApi Application",
+  "keywords": [
+    "musichub"
+  ],
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "normalize.css": "~3.0.3",
+    "bootstrap-sass": "~3.3.4",
+    "font-awesome-sass": "~4.3.1"
+  }
+}

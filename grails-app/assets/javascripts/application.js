@@ -5,16 +5,16 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better 
 // to create separate JavaScript files as needed.
 //
-//= require jquery-2.1.3.js
+//= require ../components/jquery/dist/jquery.js
+//= require ../components/bootstrap-sass/assets/javascripts/bootstrap.js
 //= require_tree .
 //= require_self
 
-if (typeof jQuery !== 'undefined') {
-    (function($) {
-        $('#spinner').ajaxStart(function() {
-            $(this).fadeIn();
-        }).ajaxStop(function() {
-            $(this).fadeOut();
-        });
-    })(jQuery);
-}
+var musichub = musichub || {};
+
+(function(){
+	  'use strict';
+
+
+
+});

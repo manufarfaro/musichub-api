@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Impact';
+  src: url('../fonts/Impact.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+	min-height: 100%;
+	body {
+		min-height: 100%;
+		& .mh-content-wrapper {
+			margin-top: $navbar-height;
+		}
+		.mh-container {
+			min-height: 100%;
+			& .mh-alert-notfound {
+				margin-top: 50px;
+			}
+			& #mh-info-app {
+				margin-top: 20px;
+				font-size: 1.6em;
+				& .mh-api-info-container {
+					margin: 50px auto 20px auto;
+				}
+			}
+		}
+	}
+}
+
+body {
+	height: 100%;
+}
+
+.navbar-nav > li > a.mh-links-social {
+	& i.mh-links-social-icon {
+		font-size: 2.2em;
+	}
+}
+
+.mh-api-options {
+	font-size: 10em;
+}
+
+.mh-body-title {
+}
+
+.mh-body-title {
+	background-color: #cccccc;
+	background-image: url('../images/mh-background-title.jpg');
+	background-size: cover;
+	background-attachment: fixed;
+	height: 250px; 
+	& h1 {
+		font-family: 'Impact';
+		position: absolute;
+		bottom: 50px;
+		left: 0;
+		right: 0;
+		font-size: 3em;
+	}
+}
+
+footer {
+	border-top: 1px $gray-dark solid;
+	background-color: $gray-dark;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}

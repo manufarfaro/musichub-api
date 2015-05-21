@@ -5,6 +5,14 @@
 
 # web application files
 /web-app/WEB-INF/classes
+.sass-cache/
+
+# Frontend temp files
+.jruby-container/
+grails-app/assets/components/
+node_modules/
+grails-app/assets/fonts/glyphicons*
+grails-app/assets/fonts/font-awesome/
 
 # Gradle metadata
 .gradle/

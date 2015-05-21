@@ -1,14 +1,21 @@
-<!doctype html>
-<html>
+<g:applyLayout name="main">
     <head>
-        <title>Page Not Found</title>
-        <meta name="layout" content="main">
-        <g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
+        <title>404 - MusicHub</title>
     </head>
     <body>
-        <ul class="errors">
-            <li>Error: Page Not Found (404)</li>
-            <li>Path: ${request.forwardURI}</li>
-        </ul>
+    	<div class="container mh-container">
+	    	<section class="row mh-alert-notfound">
+	    		<div class="col-md-12">
+	    			<div class="row">
+	    				<div class="col-md-12">
+	    					<div class="alert alert-danger" role="alert">
+	    						<h3>Error: Page Not Found (404)</h3>
+	    						<p>Path: ${request.forwardURI}</p>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</section>
+    	</div>
     </body>
-</html>
+</g:applyLayout>
