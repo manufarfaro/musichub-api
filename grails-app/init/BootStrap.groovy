@@ -1,5 +1,6 @@
 import com.musichub.Artist;
 import com.musichub.Bar;
+import com.musichub.Band;
 import com.musichub.Role
 import com.musichub.MHUser
 import com.musichub.UserRole
@@ -35,6 +36,7 @@ class BootStrap {
 
 		// Artists
 		Artist artistChuckNorris = new Artist(
+			slug:		'chucknorris',
 			username: 	'chucknorris',
 			password: 	'Chuck123',
 			email:		'chucknorris@gmail.com',
@@ -45,21 +47,32 @@ class BootStrap {
 
 		// Bar
 		Bar barBendita = new Bar(
+			slug:		'benditabar',
 			username:	'benditabar',
 			password:	'bbar1234',
 			email:		'benditabar@gmail.com',
 			name:		'Bendita Bar',
 			enabled:	true
 		).save(flush: true)
+
 		// User - Role
 		UserRole userRole1a = new UserRole(
 			user: artistChuckNorris,
 			role: roleArtist
 		).save(flush: true)
-//		UserRole userRole1b = new UserRole(
-//			user: barBendita,
-//			role: roleBar
-//		).save(flush: true)
+		UserRole userRole1b = new UserRole(
+			user: barBendita,
+			role: roleBar
+		).save(flush: true)
+
+		//Bands
+		Band chuckyband = new Band(
+			name:	'Chucky the band',
+			slug:	'chuckyandtheband',
+			leader:	artistChuckNorris
+		)
+			.addToArtists(artistChuckNorris)
+			.save(flush: true)
 	}
 		
 }

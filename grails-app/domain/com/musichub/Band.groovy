@@ -1,14 +1,16 @@
 package com.musichub
 
-class Bar extends MHUser{
+class Band {
 
 	String name
 	String slug
+	Artist leader
+	
+	static belongsTo = Artist
+	static hasMany = [artists:Artist]
 
-	static mappings = {}
-
-	static constraints = {
+    static constraints = {
 		name	blank: false
 		slug	blank: false, unique: true, minSize: 4, maxSize: 25
-	}
+    }
 }
