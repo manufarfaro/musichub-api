@@ -9,7 +9,6 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.1.1"
-		classpath "com.bertramlabs.plugins:sass-asset-pipeline:2.1.1"
     }
 }
 
@@ -60,13 +59,19 @@ dependencies {
 
     compile "org.grails:grails-dependencies"
     compile "org.grails:grails-web-boot"
+	compile 'org.apache.commons:commons-io:1.3.2'
+
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.20.0'
+	compile 'com.google.http-client:google-http-client-jackson2:1.20.0'
+	compile 'com.google.api-client:google-api-client:1.20.0'
+	compile 'com.google.apis:google-api-services-youtube:v3-rev137-1.20.0'
+	compile 'com.google.apis:google-api-services-drive:v2-rev170-1.20.0'
 
     compile "org.grails.plugins:hibernate"
     compile "org.grails.plugins:cache"
     compile "org.hibernate:hibernate-ehcache"
 
     runtime "org.grails.plugins:asset-pipeline"
-	runtime "com.bertramlabs.plugins:sass-asset-pipeline:2.1.1"
     runtime "org.grails.plugins:scaffolding"
 	runtime group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 

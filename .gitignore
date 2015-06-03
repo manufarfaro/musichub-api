@@ -3,6 +3,11 @@
 # suggested that you use the "grails integrate-with --git" command
 # to generate your .gitignore file.
 
+# Credentials
+grails-app/conf/credentials/google-client-secrets.json
+grails-app/conf/credentials/musichub-api-google.json
+grails-app/conf/credentials/musichub-api-google.pem
+
 # web application files
 /web-app/WEB-INF/classes
 .sass-cache/
