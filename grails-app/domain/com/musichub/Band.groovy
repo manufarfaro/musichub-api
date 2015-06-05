@@ -3,14 +3,20 @@ package com.musichub
 class Band {
 
 	String name
-	String slug
 	Artist leader
+	String slug
 	
 	static belongsTo = Artist
 	static hasMany = [artists:Artist]
 
     static constraints = {
 		name	blank: false
-		slug	blank: false, unique: true, minSize: 4, maxSize: 25
+		slug	nullable: true, unique: true, minSize: 4, maxSize: 36
     }
+
+	def beforeValidate() {
+		if (slug == "" || !slug) {
+			this.slug = UUID.randomUUID().toString()
+		}
+	}
 }

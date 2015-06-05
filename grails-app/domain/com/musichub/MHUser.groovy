@@ -7,6 +7,7 @@ class MHUser{
 	String username
 	String password
 	String email
+	String slug
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -18,6 +19,7 @@ class MHUser{
 		username blank: false, unique: true, minSize: 8
 		email	 email: true, blank: false, unique: true
 		password blank: false, minSize: 8
+		slug	 nullable: true, unique: true, minSize: 4, maxSize: 36
 	}
 
 	static mapping = {
@@ -31,6 +33,12 @@ class MHUser{
 		UserRole.findAllByUser(this).collect { it.role }
 	}
 
+	def beforeValidate() {
+		if (slug == "" || !slug) {
+			this.slug = UUID.randomUUID().toString()
+		}
+	}
+	
 	def beforeInsert() {
 		encodePassword()
 	}

@@ -6,10 +6,12 @@ import com.google.api.services.youtube.model.ChannelListResponse
 import com.musichub.Artist;
 import com.musichub.Bar;
 import com.musichub.Band;
+import com.musichub.Country;
 import com.musichub.Role
 import com.musichub.MHUser
 import com.musichub.UserRole
 import com.musichub.security.GoogleAuth;
+import com.musichub.util.CountryDataGenerator;
 
 import grails.util.Environment
 
@@ -63,6 +65,9 @@ class BootStrap {
     def destroy = {
     }
 	private void generateDummyData(){
+		// Country
+		CountryDataGenerator.generate()
+		
 		// Roles
 		Role roleArtist = new Role(
 			authority: 'ROLE_ARTIST'
@@ -84,7 +89,6 @@ class BootStrap {
 
 		// Bar
 		Bar barBendita = new Bar(
-			slug:		'benditabar',
 			username:	'benditabar',
 			password:	'bbar1234',
 			email:		'benditabar@gmail.com',
