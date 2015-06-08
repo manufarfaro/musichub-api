@@ -12,6 +12,7 @@ import com.musichub.MHUser
 import com.musichub.UserRole
 import com.musichub.security.GoogleAuth;
 import com.musichub.util.CountryDataGenerator;
+import com.musichub.util.RoleDataGenerator;
 
 import grails.util.Environment
 
@@ -69,13 +70,15 @@ class BootStrap {
 		CountryDataGenerator.generate()
 		
 		// Roles
-		Role roleArtist = new Role(
-			authority: 'ROLE_ARTIST'
-		).save(flush: true)
-		Role roleBar = new Role(
-			authority: 'ROLE_BAR'
-		).save(flush: true)
+		RoleDataGenerator.generate()
 
+		// Admin User (For Development & Testing)
+		MHUser userAdmin = new MHUser(
+			username:	'administrator',
+			password:	'admin123',
+			email:		'mhubofficial@gmail.com',
+		).save(flush: true)
+		
 		// Artists
 		Artist artistChuckNorris = new Artist(
 			slug:		'chucknorris',
@@ -86,7 +89,6 @@ class BootStrap {
 			lastname: 	'Norris',
 			enabled: true
 		).save(flush: true)
-
 		// Bar
 		Bar barBendita = new Bar(
 			username:	'benditabar',
@@ -98,21 +100,26 @@ class BootStrap {
 
 		// User - Role
 		UserRole userRole1a = new UserRole(
-			user: artistChuckNorris,
-			role: roleArtist
+			user: Artist.findByEmail("chucknorris@gmail.com"),
+			role: Role.findByAuthority('ROLE_ARTIST')
 		).save(flush: true)
 		UserRole userRole1b = new UserRole(
-			user: barBendita,
-			role: roleBar
+			user: Artist.findByEmail("benditabar@gmail.com"),
+			role: Role.findByAuthority('ROLE_BAR')
+		).save(flush: true)
+		UserRole userRole1c = new UserRole(
+			user: Artist.findByEmail("mhubofficial@gmail.com"),
+			role: Role.findByAuthority('ROLE_ADMIN')
 		).save(flush: true)
 
 		//Bands
 		Band chuckyband = new Band(
 			name:	'Chucky the band',
 			slug:	'chuckyandtheband',
-			leader:	artistChuckNorris
+			email:	'chucknorris@gmail.com',
+			leader:	Artist.findByEmail("chucknorris@gmail.com")
 		)
-			.addToArtists(artistChuckNorris)
+			.addToArtists(Artist.findByEmail("chucknorris@gmail.com"))
 			.save(flush: true)
 	}
 		
