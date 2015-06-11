@@ -7,11 +7,13 @@ import com.musichub.Artist;
 import com.musichub.Bar;
 import com.musichub.Band;
 import com.musichub.Country;
+import com.musichub.QuotesController;
 import com.musichub.Role
 import com.musichub.MHUser
 import com.musichub.UserRole
 import com.musichub.security.GoogleAuth;
 import com.musichub.util.CountryDataGenerator;
+import com.musichub.util.QuoteDataGenerator;
 import com.musichub.util.RoleDataGenerator;
 
 import grails.util.Environment
@@ -69,6 +71,9 @@ class BootStrap {
 		// Country
 		CountryDataGenerator.generate()
 		
+		//Quotes
+		QuoteDataGenerator.generate()
+
 		// Roles
 		RoleDataGenerator.generate()
 
