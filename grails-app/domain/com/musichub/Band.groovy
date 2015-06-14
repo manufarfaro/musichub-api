@@ -1,5 +1,8 @@
 package com.musichub
 
+import groovy.transform.ToString;
+
+@ToString(includeNames=true, includeFields=true)
 class Band {
 
 	String name

@@ -9,7 +9,7 @@ class UrlMappings {
 		group "/quotes", {
 			"/"		(controller: "quotes", action: "index", method: "GET")
 			"/$id"	(controller: "quotes", action: "show", method: "GET")
-			"/$id"	(controller: "quotes", action: "save", method: "POST")
+			"/"		(controller: "quotes", action: "save", method: "POST")
 			"/$id"	(controller: "quotes", action: "update", method: "PUT")
 			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
 		}

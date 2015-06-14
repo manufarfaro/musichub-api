@@ -1,7 +1,9 @@
 package com.musichub
 
+import groovy.transform.ToString;
 import org.apache.commons.lang.builder.HashCodeBuilder
 
+@ToString(includeNames=true, includeFields=true)
 class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 1

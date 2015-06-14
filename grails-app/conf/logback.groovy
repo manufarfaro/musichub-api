@@ -1,3 +1,4 @@
+
 import grails.util.BuildSettings
 import grails.util.Environment
 
@@ -23,9 +24,13 @@ if(Environment.current == Environment.DEVELOPMENT) {
                 pattern = "%level %logger - %msg%n"
             }
         }
-        logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false )
+        logger("StackTrace", INFO, ['FULL_STACKTRACE'], true )
 		logger('org.springframework.boot.autoconfigure.security', INFO)
-		logger('org.hibernate.type', TRACE)
-		logger('org.hibernate.SQL', DEBUG)
+//		logger('org.hibernate.type', TRACE)
+//		logger('org.hibernate.SQL', DEBUG)
+		logger('org.springframework.security', INFO)
+		logger('org.springframework.security', DEBUG)
+		logger('com.musichub', INFO)
+		logger('com.musichub', DEBUG)
     }
 }

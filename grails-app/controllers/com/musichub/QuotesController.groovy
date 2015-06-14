@@ -1,5 +1,10 @@
 package com.musichub
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.google.api.client.json.Json;
+
+import sun.net.httpserver.Request;
 import grails.transaction.*
 import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
@@ -31,7 +36,7 @@ class QuotesController {
 
 	@Transactional
 	def update(Quote quote) {
-		if(quote) {
+		if(!quote) {
 			render status: NOT_FOUND
 		}
 		else {
@@ -46,7 +51,7 @@ class QuotesController {
 
 	@Transactional
 	def delete(Quote quote) {
-		if(quote) {
+		if(!quote) {
 			render status: NOT_FOUND
 		}
 		else {

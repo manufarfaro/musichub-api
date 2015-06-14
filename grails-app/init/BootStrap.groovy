@@ -109,11 +109,11 @@ class BootStrap {
 			role: Role.findByAuthority('ROLE_ARTIST')
 		).save(flush: true)
 		UserRole userRole1b = new UserRole(
-			user: Artist.findByEmail("benditabar@gmail.com"),
+			user: Bar.findByEmail("benditabar@gmail.com"),
 			role: Role.findByAuthority('ROLE_BAR')
 		).save(flush: true)
 		UserRole userRole1c = new UserRole(
-			user: Artist.findByEmail("mhubofficial@gmail.com"),
+			user: MHUser.findByEmail("mhubofficial@gmail.com"),
 			role: Role.findByAuthority('ROLE_ADMIN')
 		).save(flush: true)
 

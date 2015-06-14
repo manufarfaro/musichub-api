@@ -1,5 +1,8 @@
 package com.musichub
 
+import groovy.transform.ToString;
+
+@ToString(includeNames=true, includeFields=true)
 class Quote {
 	String title
 	String quote
