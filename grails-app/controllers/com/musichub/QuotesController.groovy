@@ -1,8 +1,10 @@
 package com.musichub
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.api.client.json.Json;
+import com.musichub.util.google.services.Upload;
 
 import sun.net.httpserver.Request;
 import grails.transaction.*
@@ -25,12 +27,21 @@ class QuotesController {
 
 	@Transactional
 	def save(Quote quote) {
-		if(quote.hasErrors()) {
-			respond quote.errors
+		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+			String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifnBpTVB0eVJPOGJJdEg0VEpvTThfelJ5UlRMZlBoUk9LeEliWHBmWFVxcUk")
+			params.fileId = uploadedFileId
+			
+			quote = new Quote(
+				title: params.title,
+				quote: params.quote,
+				fileId: params.fileId
+			)
 		}
-		else {
-			quote.save()
+		
+		if(quote.save(flush: true)){
 			render status: CREATED
+		} else {
+			respond quote.errors
 		}
 	}
 
@@ -40,11 +51,22 @@ class QuotesController {
 			render status: NOT_FOUND
 		}
 		else {
-			if (quote.hasErrors()){
-				respond quote.errors
-			} else {
-				quote.save(flush: true)
+			
+			if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+				String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifnBpTVB0eVJPOGJJdEg0VEpvTThfelJ5UlRMZlBoUk9LeEliWHBmWFVxcUk")
+				params.fileId = uploadedFileId
+				
+				quote = new Quote(
+					title: params.title,
+					quote: params.quote,
+					fileId: params.fileId
+				)
+			}
+			
+			if(quote.save(flush: true)){
 				render status: CREATED
+			} else {
+				respond quote.errors
 			}
 		}
 	}

@@ -30,6 +30,9 @@ if(Environment.current == Environment.DEVELOPMENT) {
 //		logger('org.hibernate.SQL', DEBUG)
 		logger('org.springframework.security', INFO)
 		logger('org.springframework.security', DEBUG)
+		logger('com.google.api', INFO)
+		logger('com.google.api', DEBUG)
+		logger('net.sf.jmimemagic', DEBUG)
 		logger('com.musichub', INFO)
 		logger('com.musichub', DEBUG)
     }

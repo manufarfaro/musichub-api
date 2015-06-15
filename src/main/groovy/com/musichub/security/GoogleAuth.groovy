@@ -9,6 +9,8 @@ import groovy.json.JsonSlurper;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.grails.io.support.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,9 +36,10 @@ import com.musichub.ApplicationContextHolder
 class GoogleAuth {
 
 	static ApplicationContextHolder applicationContextHolder = ApplicationContextHolder.instance
+
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance()
 	public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport()
-	private static final List<String> SCOPES = [YouTubeScopes.YOUTUBE, DriveScopes.DRIVE]
+	private static final List<String> SCOPES = [YouTubeScopes.YOUTUBE, DriveScopes.DRIVE, DriveScopes.DRIVE_FILE]
 	
 	public static Credential authorize() throws IOException {
 

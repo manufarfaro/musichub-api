@@ -3,6 +3,10 @@ grails:
     profile: web
     codegen:
         defaultPackage: musichub
+    controllers:
+        upload:
+            maxFileSize: 3145728
+            maxRequestSize: 3145728
 info:
     app:
         name: '@info.app.name@'
