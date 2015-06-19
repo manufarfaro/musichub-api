@@ -56,24 +56,36 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(
 					HttpMethod.GET,
+					"/videos/*",
 					"/quotes/*",
 					"/assets/*",
 					"/"
 				).permitAll()
-				
+
 				.antMatchers(
-					HttpMethod.DELETE, 
-					"/quotes/*"
+					HttpMethod.GET,
+					"/profile/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR') or hasRole('ROLE_ARTIST')")
+
+				.antMatchers(
+					HttpMethod.DELETE,
+					"/profile/*",
+					"/quotes/*",
+					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.PUT,
-					"/quotes/*"
+					"/profile/*",
+					"/quotes/*",
+					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.POST,
-					"/quotes/"
+					"/profile/",
+					"/quotes/",
+					"/videos/"
 				).access("hasRole('ROLE_ADMIN')")
 
 		http.logout().logoutSuccessHandler(new NoRedirectLogoutSuccessHandler())
