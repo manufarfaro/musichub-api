@@ -13,6 +13,10 @@ class UrlMappings {
 			"/$id"	(controller: "quotes", action: "update", method: "PUT")
 			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
 		}
+		
+		group "/country", {
+			"/"		(controller: "country", action: "index", method: "GET")
+		}
 
         "/"(view:"/index")
         "500"(view:'/error')

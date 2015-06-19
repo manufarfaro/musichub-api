@@ -57,23 +57,27 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 					HttpMethod.GET,
 					"/quotes/*",
+					"/country/*",
 					"/assets/*",
 					"/"
 				).permitAll()
 				
 				.antMatchers(
 					HttpMethod.DELETE, 
-					"/quotes/*"
+					"/quotes/*",
+					"/country/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.PUT,
-					"/quotes/*"
+					"/quotes/*",
+					"/country/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.POST,
-					"/quotes/"
+					"/quotes/",
+					"/country/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 		http.logout().logoutSuccessHandler(new NoRedirectLogoutSuccessHandler())
