@@ -122,10 +122,10 @@ class BootStrap {
 			name:	'Chucky the band',
 			slug:	'chuckyandtheband',
 			email:	'chucknorris@gmail.com',
-			leader:	Artist.findByEmail("chucknorris@gmail.com")
-		)
-			.addToArtists(Artist.findByEmail("chucknorris@gmail.com"))
-			.save(flush: true)
+			leader: artistChuckNorris
+		).addToArtists(artistChuckNorris)
+		.save(flush: true)
+		
 	}
 		
 }

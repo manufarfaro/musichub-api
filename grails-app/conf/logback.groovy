@@ -26,8 +26,8 @@ if(Environment.current == Environment.DEVELOPMENT) {
         }
         logger("StackTrace", INFO, ['FULL_STACKTRACE'], true )
 		logger('org.springframework.boot.autoconfigure.security', INFO)
-//		logger('org.hibernate.type', TRACE)
-//		logger('org.hibernate.SQL', DEBUG)
+		logger('org.hibernate.type', TRACE)
+		logger('org.hibernate.SQL', DEBUG)
 		logger('org.springframework.security', INFO)
 		logger('org.springframework.security', DEBUG)
 		logger('com.google.api', INFO)

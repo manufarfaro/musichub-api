@@ -15,14 +15,16 @@ class Band {
 	String twitterId
 	String website
 	
-	static belongsTo = [Artist]
-
 	static hasMany = [
 		artists: Artist,
 		discs: Disc,
 		videos: Video,
 		photos: Photo
 	]
+	
+	static mappedBy = [artists: "none"]
+	
+	static belongsTo = [Artist]
 
     static constraints = {
 		name			blank: false
@@ -35,6 +37,10 @@ class Band {
 		twitterId		nullable: true, blank: true, minSize: 3, maxSize: 30
 		website			nullable: true, blank: true, url: true
     }
+	
+	def mapping = {
+		artists	column: "artist_id", joinTable: "artist_band"
+	}
 
 	def beforeValidate() {
 		if (slug == "" || !slug) {

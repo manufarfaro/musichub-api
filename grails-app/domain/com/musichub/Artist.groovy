@@ -25,7 +25,9 @@ class Artist extends MHUser{
 		photos: Photo
 	]
 	
-	static mappings = {}
+	static mappings = {
+		bands	column: "band", joinTable: "artist_band"
+	}
 
 	static constraints = {
 		name			blank: false, minSize: 2, maxSize: 30

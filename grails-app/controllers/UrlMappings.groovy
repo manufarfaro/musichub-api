@@ -17,6 +17,7 @@ class UrlMappings {
 
 		group "/country", {
 			"/"		(controller: "country", action: "index", method: "GET")
+		}
 
 		group "/videos", {
 			"/"		(controller: "videos", action: "index", method: "GET")
