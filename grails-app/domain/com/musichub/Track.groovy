@@ -3,18 +3,14 @@ package com.musichub
 import groovy.transform.ToString;
 
 @ToString(includeNames=true, includeFields=true)
-class Bar extends MHUser{
-
+class Track {
 	String name
+	int order
+	Disc disc
+
+	static belongsTo = [Disc] 
 	
-	static hasMany = [
-		videos: Video,
-		photos: Photo
-	]
-
-	static mappings = {}
-
 	static constraints = {
-		name	blank: false
+		name	blank: false,minSize: 2, maxSize: 30
 	}
 }

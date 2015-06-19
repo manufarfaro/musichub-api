@@ -6,6 +6,7 @@ import groovy.transform.ToString;
 class Band {
 
 	String name
+	String bio
 	Artist leader
 	String slug
 	String email
@@ -15,10 +16,17 @@ class Band {
 	String website
 	
 	static belongsTo = [Artist]
-	static hasMany = [artists:Artist]
+
+	static hasMany = [
+		artists: Artist,
+		discs: Disc,
+		videos: Video,
+		photos: Photo
+	]
 
     static constraints = {
 		name			blank: false
+		bio				nullable: true, blank: true, maxSize: 350
 		email	 		blank: false, email: true, unique: true
 		leader			nullable: true
 		slug			nullable: true, unique: true, minSize: 4, maxSize: 36
