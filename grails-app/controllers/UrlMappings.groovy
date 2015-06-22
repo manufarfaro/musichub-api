@@ -12,11 +12,14 @@ class UrlMappings {
 			"/"		(controller: "quotes", action: "save", method: "POST")
 			"/$id"	(controller: "quotes", action: "update", method: "PUT")
 			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
-		}
-		
+		}		
 
 		group "/country", {
 			"/"		(controller: "country", action: "index", method: "GET")
+			"/$id"	(controller: "country", action: "show", method: "GET")
+			"/"		(controller: "country", action: "save", method: "POST")
+			"/$id"	(controller: "country", action: "update", method: "PUT")
+			"/$id"	(controller: "country", action: "delete", method: "DELETE")
 		}
 
 		group "/videos", {

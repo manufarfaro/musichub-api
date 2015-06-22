@@ -86,7 +86,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.POST,
-					"/country/*",
+					"/country/",
 					"/profile/",
 					"/quotes/",
 					"/videos/"
