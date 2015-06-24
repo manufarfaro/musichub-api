@@ -7,6 +7,17 @@ grails:
         upload:
             maxFileSize: 3145728
             maxRequestSize: 3145728
+    mail:
+      username: mhubofficial@gmail.com
+      sender:
+        host: smtp.mailgun.org
+        port: 587
+        username: changeme
+        password: changeme
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 info:
     app:
         name: '@info.app.name@'

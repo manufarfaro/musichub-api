@@ -56,6 +56,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(
 					HttpMethod.GET,
+					"/users/*",
+					"/tracks/*",
 					"/videos/*",
 					"/quotes/*",
 					"/country/*",
@@ -70,6 +72,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.DELETE,
+					"/tracks/*",
 					"/country/*",
 					"/profile/*",
 					"/quotes/*",
@@ -78,6 +81,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.PUT,
+					"/tracks/*",
 					"/country/*",
 					"/profile/*",
 					"/quotes/*",
@@ -86,6 +90,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.POST,
+					"/tracks/*",
 					"/country/*",
 					"/profile/",
 					"/quotes/",
