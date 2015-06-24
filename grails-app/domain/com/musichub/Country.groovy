@@ -1,5 +1,8 @@
 package com.musichub
 
+import groovy.transform.ToString;
+
+@ToString(includeNames=true, includeFields=true)
 class Country {
 	String iso
 	String name
