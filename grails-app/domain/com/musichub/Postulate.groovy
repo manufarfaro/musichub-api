@@ -6,14 +6,14 @@ class Postulate {
 	String text
 	MHUser offerer
 
-	static belongsTo = [MHUser, Artist, Band]
+	static belongsTo = [MHUser, Artist, Bar, Band]
 
 	static hasMany = [
 		artistsPostulants : Artist,
 		bandsPostulants: Band
 	]
 	static mappedBy = [
-		artistsPostulants: "postulations",
-		bandsPostulants: "postulations"
+		artistsPostulants: "postulated",
+		bandsPostulants: "postulated"
 	]
 }

@@ -20,11 +20,11 @@ class Band {
 		discs: Disc,
 		videos: Video,
 		photos: Photo,
-		postulations: Postulate
+		postulated: Postulate
 	]
 	
 	static mappedBy = [
-		postulations: "bandsPostulants"
+		postulated: "bandsPostulants"
 	]
 	
 	static belongsTo = [Artist]

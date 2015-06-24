@@ -74,6 +74,7 @@ dependencies {
 	compile "net.sf.jmimemagic:jmimemagic:0.1.4"
 	compile 'javax.mail:mail:1.5.0-b01'
 	compile 'javax.activation:activation:1.1.1'
+	compile 'org.apache.commons:commons-lang3:3.4'
 
     runtime "org.grails.plugins:asset-pipeline"
     runtime "org.grails.plugins:scaffolding"

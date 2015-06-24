@@ -17,6 +17,7 @@ import com.musichub.util.BandDataGenerator;
 import com.musichub.util.BarDataGenerator;
 import com.musichub.util.CountryDataGenerator;
 import com.musichub.util.MHUserDataGenerator;
+import com.musichub.util.PostulateDataGenerator;
 import com.musichub.util.QuoteDataGenerator;
 import com.musichub.util.RoleDataGenerator;
 
@@ -92,6 +93,9 @@ class BootStrap {
 
 		//Bands
 		BandDataGenerator.generate()
+
+		// Postulations
+		PostulateDataGenerator.generate()
 	}
 		
 }

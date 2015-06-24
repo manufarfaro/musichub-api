@@ -1,9 +1,11 @@
 package com.musichub.util
 
 import java.text.SimpleDateFormat
+
 import com.musichub.Bar
 import com.musichub.Event
 import com.musichub.Photo
+import com.musichub.Postulate;
 import com.musichub.Role
 import com.musichub.UserRole
 import com.musichub.Video
@@ -36,6 +38,7 @@ class BarDataGenerator {
 		this.addPhotos(barRustico)
 		this.addVideos(barRustico)
 		this.addEvents(barRustico)
+		this.addPostulations(barRustico)
 	}
 
 	protected static void addEvents(Bar bar) {
@@ -80,6 +83,7 @@ class BarDataGenerator {
 			.addToPhotos(photoA3)
 			.save(flush:true)
 	}
+
 	protected static void addVideos(Bar bar) {
 
 		Video nyanCatVideo = new Video (
@@ -88,5 +92,13 @@ class BarDataGenerator {
 		)
 
 		bar.addToVideos(nyanCatVideo).save(flush:true)
+	}
+
+	protected static void addPostulations(Bar bar) {
+		Postulate postulationRustico = new Postulate(
+			title:	'Rústico busca teloneros para evento 30/07',
+			text:	'Rústico bar búsca bandas estilo Trash/Hardcore para el \"festival hardcore vol. IV\", para interesados por favor contactanos a hardcoreenventarg@yahoo.com.ar . Rústico Bar.',
+		)
+		bar.addToPostulations(postulationRustico).save(flush: true)
 	}
 }

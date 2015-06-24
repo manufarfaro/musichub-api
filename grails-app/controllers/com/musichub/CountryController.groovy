@@ -32,7 +32,7 @@ class CountryController {
 		}
 	}
 	
-@Transactional
+	@Transactional
 	def update(Country country) {
 		if(!country) {
 			render status: HttpStatus.NOT_FOUND
@@ -43,9 +43,9 @@ class CountryController {
 		} else {
 			respond country.errors
 		}				
-}
+	}
 	
-@Transactional
+	@Transactional
 	def delete(Country country) {
 		if(!country) {
 			render status: HttpStatus.NOT_FOUND

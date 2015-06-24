@@ -23,11 +23,13 @@ class Artist extends MHUser {
 		discs: Disc,
 		videos: Video,
 		photos: Photo,
+		postulated: Postulate,
 		postulations: Postulate
 	]
 	
 	static mappedBy = [
-		postulations: "artistsPostulants"
+		postulated: "artistsPostulants",
+		postulations: "offerer"
 	]
 
 	static mappings = {
@@ -44,7 +46,7 @@ class Artist extends MHUser {
 		lastname		nullable: true, blank: true, minSize: 2, maxSize: 40
 		gender			nullable: true, blank: true, minSize: 3, maxSize: 30
 		region			nullable: true, blank: true
-		birthdate		nullable: true, blank: true, min: new Date()
+		birthdate		nullable: true, blank: true
 		codePhone		nullable: true, blank: true, minSize: 1, maxSize:5
 		phone			nullable: true, blank: true, minSize: 5, maxSize: 12
 		googlePlusId	nullable: true, blank: true, minSize: 3, maxSize: 128

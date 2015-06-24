@@ -7,16 +7,18 @@ import groovy.transform.ToString;
 @ToString(includeNames=true, includeFields=true)
 class Track extends MediaType{
 	String name
-	Integer order
+	Integer orderNbr
 	Disc disc
 
 	static belongsTo = [Disc]
 
-	static mappedBy = []
+	static mappedBy = [
+		disc: "tracks"
+	]
 
 	static constraints = {
 		name	blank: false, minSize: 2, maxSize: 30
-		order	nullable: true, min: 1
+		orderNbr	nullable: true, unique: false
 	}
 	
 	static namedQueries = {

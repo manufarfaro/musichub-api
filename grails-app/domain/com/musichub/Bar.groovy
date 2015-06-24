@@ -19,9 +19,13 @@ class Bar extends MHUser{
 		videos: Video,
 		photos: Photo,
 		events: Event,
+		postulations: Postulate
 	]
 
-	static mappedBy = [events: "bar"]
+	static mappedBy = [
+		events: "bar",
+		postulations: "offerer"
+	]
 
 	static mappings = {
 		photos cascade: 'all-delete-orphan'
