@@ -11,6 +11,7 @@ class MHUser{
 	String password
 	String email
 	String slug
+	String passwordResetToken
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -19,17 +20,20 @@ class MHUser{
 	static transients = ['springSecurityService']
 
 	static constraints = {
-		username blank: false, unique: true, minSize: 8
-		email	 email: true, blank: false, unique: true
-		password blank: false, minSize: 8
-		slug	 nullable: true, unique: true, minSize: 4, maxSize: 36
+		username 			blank: false, unique: true, minSize: 8
+		email	 			email: true, blank: false, unique: true
+		password 			blank: false, minSize: 8
+		slug	 			nullable: true, unique: true, minSize: 4, maxSize: 36
+		passwordResetToken	nullable: true, unique: true, minSize: 4, maxSize: 36
 	}
+
+	static hasMany = []
+	
+	static mappedBy = []
 
 	static mapping = {
 		password column: '`password`'
 		tablePerHierarchy false
-//		reviews cascade: "all-delete-orphan"
-//		table "mhusers"
 	}
 
 	Set<Role> getAuthorities() {

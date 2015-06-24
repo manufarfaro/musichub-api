@@ -13,7 +13,6 @@ class UrlMappings {
 			"/$id"	(controller: "quotes", action: "update", method: "PUT")
 			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
 		}
-		
 
 		group "/country", {
 			"/"		(controller: "country", action: "index", method: "GET")
@@ -26,16 +25,40 @@ class UrlMappings {
 			"/$id"	(controller: "videos", action: "update", method: "PUT")
 			"/$id"	(controller: "videos", action: "delete", method: "DELETE")
 		}
-		
+
 		group "/profile", {
 			"/"				(controller: "profile", action: "index", method: "GET")
-			"/$id"			(controller: "profile", action: "update", method: "PUT")
-			"/photo/"		(controller: "profile_photos", action: "index", method: "GET")
-			"/photo/id"		(controller: "profile_photos", action: "show", method: "GET")
-			"/photo/"		(controller: "profile_photos", action: "save", method: "POST")
-			"/photo/$id"	(controller: "profile_photos", action: "update", method: "PUT")
-			"/photo/$id"	(controller: "profile_photos", action: "delete", method: "DELETE")
+			"/"				(controller: "profile", action: "update", method: "PUT")
+			"/photo/"		(controller: "profilePhotos", action: "index", method: "GET")
+			"/photo/$id"	(controller: "profilePhotos", action: "show", method: "GET")
+			"/photo/"		(controller: "profilePhotos", action: "save", method: "POST")
+			"/photo/$id"	(controller: "profilePhotos", action: "update", method: "PUT")
+			"/photo/$id"	(controller: "profilePhotos", action: "delete", method: "DELETE")
 
+		}
+
+		group "/users" , {
+			"/register"			(controller: "users", action: "register", method: "post")
+			"/resetPassword"	(controller: "users", action: "resetPassword", method: "post")
+			"/confirmToken"		(controller: "users", action: "confirmToken", method: "post")
+		}
+
+		group "/tracks", {
+			"/"				(controller: "tracks", action: "index", method: "GET")
+			"/$id"			(controller: "tracks", action: "show", method: "GET")
+			"/random"		(controller: "tracks", action: "random", method: "GET")
+			"/"				(controller: "tracks", action: "save", method: "POST")
+			"/$id"			(controller: "tracks", action: "update", method: "PUT")
+			"/$id"			(controller: "tracks", action: "delete", method: "DELETE")
+		}
+
+		group "/photos", {
+			"/"				(controller: "photos", action: "index", method: "GET")
+			"/$id"			(controller: "photos", action: "show", method: "GET")
+			"/random"		(controller: "photos", action: "random", method: "GET")
+			"/"				(controller: "photos", action: "save", method: "POST")
+			"/$id"			(controller: "photos", action: "update", method: "PUT")
+			"/$id"			(controller: "photos", action: "delete", method: "DELETE")
 		}
 
         "/"(view:"/index")

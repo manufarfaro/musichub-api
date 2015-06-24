@@ -19,10 +19,13 @@ class Band {
 		artists: Artist,
 		discs: Disc,
 		videos: Video,
-		photos: Photo
+		photos: Photo,
+		postulations: Postulate
 	]
 	
-	static mappedBy = [artists: "none"]
+	static mappedBy = [
+		postulations: "bandsPostulants"
+	]
 	
 	static belongsTo = [Artist]
 
@@ -40,6 +43,7 @@ class Band {
 	
 	def mapping = {
 		artists	column: "artist_id", joinTable: "artist_band"
+		photos cascade: 'all-delete-orphan'
 	}
 
 	def beforeValidate() {

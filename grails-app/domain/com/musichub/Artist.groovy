@@ -3,7 +3,7 @@ package com.musichub
 import groovy.transform.ToString;
 
 @ToString(includeNames=true, includeFields=true)
-class Artist extends MHUser{
+class Artist extends MHUser {
 
 	String name
 	String bio
@@ -22,17 +22,26 @@ class Artist extends MHUser{
 		bands: Band,
 		discs: Disc,
 		videos: Video,
-		photos: Photo
+		photos: Photo,
+		postulations: Postulate
 	]
 	
+	static mappedBy = [
+		postulations: "artistsPostulants"
+	]
+
 	static mappings = {
 		bands	column: "band", joinTable: "artist_band"
+		bands	cascade: 'all-delete-orphan'
+		photos	cascade: 'all-delete-orphan'
+		discs	cascade: 'all-delete-orphan'
+		videos	cascade: 'all-delete-orphan'
 	}
 
 	static constraints = {
-		name			blank: false, minSize: 2, maxSize: 30
+		name			nullable: true, blank: true, minSize: 2, maxSize: 30
 		bio				nullable: true, blank: true, maxSize: 350
-		lastname		blank: false, minSize: 2, maxSize: 40
+		lastname		nullable: true, blank: true, minSize: 2, maxSize: 40
 		gender			nullable: true, blank: true, minSize: 3, maxSize: 30
 		region			nullable: true, blank: true
 		birthdate		nullable: true, blank: true, min: new Date()

@@ -8,6 +8,9 @@ grails-app/conf/credentials/google-client-secrets.json
 grails-app/conf/credentials/musichub-api-google.json
 grails-app/conf/credentials/musichub-api-google.pem
 
+# Ignore new changes - You have to force them (--force)
+grails-app/conf/application.yml
+
 # web application files
 /web-app/WEB-INF/classes
 .sass-cache/

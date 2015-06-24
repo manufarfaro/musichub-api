@@ -12,7 +12,11 @@ import com.musichub.Role
 import com.musichub.MHUser
 import com.musichub.UserRole
 import com.musichub.security.GoogleAuth;
+import com.musichub.util.ArtistDataGenerator;
+import com.musichub.util.BandDataGenerator;
+import com.musichub.util.BarDataGenerator;
 import com.musichub.util.CountryDataGenerator;
+import com.musichub.util.MHUserDataGenerator;
 import com.musichub.util.QuoteDataGenerator;
 import com.musichub.util.RoleDataGenerator;
 
@@ -25,8 +29,8 @@ class BootStrap {
 			development {
 				this.generateDummyData()
 
-				try {
-					Credential googleCredentials = GoogleAuth.authorize()
+//				try {
+//					Credential googleCredentials = GoogleAuth.authorize()
 					
 //					Circunstantial - only to know how service works
 //					Drive drive = new Drive.Builder(
@@ -52,9 +56,9 @@ class BootStrap {
 //					List<Channel> channelsList = channelResult.getItems();
 //
 //					println("Youtube Channel List: ${channelsList}")
-				} catch(IOException exception) {
-					System.out.println("IOException: " + exception.getMessage())
-				}
+//				} catch(IOException exception) {
+//					System.out.println("IOException: " + exception.getMessage())
+//				}
 			}
 			test {
 				this.generateDummyData()
@@ -77,55 +81,17 @@ class BootStrap {
 		// Roles
 		RoleDataGenerator.generate()
 
-		// Admin User (For Development & Testing)
-		MHUser userAdmin = new MHUser(
-			username:	'administrator',
-			password:	'admin123',
-			email:		'mhubofficial@gmail.com',
-		).save(flush: true)
-		
-		// Artists
-		Artist artistChuckNorris = new Artist(
-			slug:		'chucknorris',
-			username: 	'chucknorris',
-			password: 	'Chuck123',
-			email:		'chucknorris@gmail.com',
-			name: 		'Chuck',
-			lastname: 	'Norris',
-			enabled: true
-		).save(flush: true)
-		// Bar
-		Bar barBendita = new Bar(
-			username:	'benditabar',
-			password:	'bbar1234',
-			email:		'benditabar@gmail.com',
-			name:		'Bendita Bar',
-			enabled:	true
-		).save(flush: true)
+		// Administrator User (For Development & Testing)
+		MHUserDataGenerator.generate()
 
-		// User - Role
-		UserRole userRole1a = new UserRole(
-			user: Artist.findByEmail("chucknorris@gmail.com"),
-			role: Role.findByAuthority('ROLE_ARTIST')
-		).save(flush: true)
-		UserRole userRole1b = new UserRole(
-			user: Bar.findByEmail("benditabar@gmail.com"),
-			role: Role.findByAuthority('ROLE_BAR')
-		).save(flush: true)
-		UserRole userRole1c = new UserRole(
-			user: MHUser.findByEmail("mhubofficial@gmail.com"),
-			role: Role.findByAuthority('ROLE_ADMIN')
-		).save(flush: true)
+		// Artists
+		ArtistDataGenerator.generate()
+
+		// Bar
+		BarDataGenerator.generate()
 
 		//Bands
-		Band chuckyband = new Band(
-			name:	'Chucky the band',
-			slug:	'chuckyandtheband',
-			email:	'chucknorris@gmail.com',
-			leader: artistChuckNorris
-		).addToArtists(artistChuckNorris)
-		.save(flush: true)
-		
+		BandDataGenerator.generate()
 	}
 		
 }

@@ -7,11 +7,13 @@ class Disc {
 	String name
 	Band band
 	Artist artist
+	Photo artwork
 	
 	static belongsTo = [Artist, Band]
 
 	static constraints = {
 		name	blank: false,minSize: 2, maxSize: 50
+		artwork	nullable:true
 	}
 
 }
