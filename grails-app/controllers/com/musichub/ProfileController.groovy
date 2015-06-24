@@ -16,8 +16,8 @@ class ProfileController {
 	static responseFormats = ['json', 'xml']
 
 	def index(Integer max) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication()
-		if (auth.isAuthenticated()){
+		Authentication auth = SecurityContextHolder?.getContext().getAuthentication()
+		if (auth?.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")){
 			User user = auth.getPrincipal()
 			MHUser mhUser = MHUser.findByUsername(user.getUsername())
 			MHUser loggedUser = Artist.get(mhUser.getId()) ?:Bar.get(mhUser.getId())
@@ -26,5 +26,9 @@ class ProfileController {
 		} else {
 			render status: HttpStatus.UNAUTHORIZED
 		}
+	}
+	
+	def update() {
+		
 	}
 }

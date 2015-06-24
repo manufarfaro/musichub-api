@@ -3,6 +3,8 @@ package com.musichub
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+
 import com.google.api.client.json.Json;
 import com.musichub.util.google.services.Upload;
 
@@ -27,7 +29,7 @@ class QuotesController {
 
 	@Transactional
 	def save(Quote quote) {
-		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
 			String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifnBpTVB0eVJPOGJJdEg0VEpvTThfelJ5UlRMZlBoUk9LeEliWHBmWFVxcUk")
 			params.fileId = uploadedFileId
 			
@@ -39,7 +41,7 @@ class QuotesController {
 		}
 		
 		if(quote.save(flush: true)){
-			render status: CREATED
+			render status: HttpStatus.CREATED
 		} else {
 			respond quote.errors
 		}
@@ -48,11 +50,11 @@ class QuotesController {
 	@Transactional
 	def update(Quote quote) {
 		if(!quote) {
-			render status: NOT_FOUND
+			render status: HttpStatus.NOT_FOUND
 		}
 		else {
 			
-			if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+			if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
 				String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifnBpTVB0eVJPOGJJdEg0VEpvTThfelJ5UlRMZlBoUk9LeEliWHBmWFVxcUk")
 				params.fileId = uploadedFileId
 				
@@ -62,9 +64,8 @@ class QuotesController {
 					fileId: params.fileId
 				)
 			}
-			
 			if(quote.save(flush: true)){
-				render status: CREATED
+				render status: HttpStatus.CREATED
 			} else {
 				respond quote.errors
 			}
@@ -74,14 +75,14 @@ class QuotesController {
 	@Transactional
 	def delete(Quote quote) {
 		if(!quote) {
-			render status: NOT_FOUND
+			render status: HttpStatus.NOT_FOUND
 		}
 		else {
 			if (quote.hasErrors()){
 				respond quote.errors
 			} else {
 				quote.delete(flush: true)
-				render status: NO_CONTENT
+				render status: HttpStatus.NO_CONTENT
 			}
 		}
 	}
