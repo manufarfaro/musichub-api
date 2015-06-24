@@ -22,6 +22,14 @@ class UrlMappings {
 			"/$id"	(controller: "country", action: "delete", method: "DELETE")
 		}
 
+//		group "/roles", {
+//			"/"		(controller: "roles", action: "index", method: "GET")
+//			"/$id"	(controller: "roles", action: "show", method: "GET")
+//			"/"		(controller: "roles", action: "save", method: "POST")
+//			"/$id"	(controller: "roles", action: "update", method: "PUT")
+//			"/$id"	(controller: "roles", action: "delete", method: "DELETE")
+//		}
+
 		group "/videos", {
 			"/"		(controller: "videos", action: "index", method: "GET")
 			"/$id"	(controller: "videos", action: "show", method: "GET")

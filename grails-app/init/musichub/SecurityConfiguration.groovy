@@ -61,6 +61,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/videos/*",
 					"/quotes/*",
 					"/country/*",
+					"/roles/*",
 					"/assets/*",
 					"/"
 				).permitAll()
@@ -76,6 +77,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/country/*",
 					"/profile/*",
 					"/quotes/*",
+					"/roles/*",
 					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
 
@@ -85,6 +87,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/country/*",
 					"/profile/*",
 					"/quotes/*",
+					"/roles/*",
 					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
 
@@ -94,6 +97,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/country/*",
 					"/profile/",
 					"/quotes/",
+					"/roles/",
 					"/videos/"
 				).access("hasRole('ROLE_ADMIN')")
 
