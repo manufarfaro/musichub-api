@@ -2,6 +2,8 @@ package com.musichub
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+
 import sun.net.httpserver.Request;
 import grails.transaction.*
 import static org.springframework.http.HttpStatus.*
@@ -23,20 +25,8 @@ class CountryController {
 	
 	@Transactional
 	def save(Country country) {
-		if (!country.iso.isEmpty()&&!country.name.isEmpty()&&!country.nicename.isEmpty()&&country.phoneCode.toString().isInteger()) {
-
-			country = new Country(
-				iso: country.iso,
-				name: country.name,
-				nicename: country.nicename,
-				iso3: country.iso3,
-				numCode: country.numCode,
-				phoneCode: country.phoneCode
-			)
-		}
-		
 		if(country.save(flush: true)){
-			render status: CREATED
+			render status: HttpStatus.CREATED
 		} else {
 			respond country.errors
 		}
@@ -45,41 +35,27 @@ class CountryController {
 @Transactional
 	def update(Country country) {
 		if(!country) {
-			render status: NOT_FOUND
+			render status: HttpStatus.NOT_FOUND
 		}
-		else {
-			
-			if (!country.iso.isEmpty()&&!country.name.isEmpty()&&!country.nicename.isEmpty()&&country.phoneCode.toString().isInteger()) {
-	
-				country = new Country(
-					iso: country.iso,
-					name: country.name,
-					nicename: country.nicename,
-					iso3: country.iso3,
-					numCode: country.numCode,
-					phoneCode: country.phoneCode
-				)
-			}
-			
-			if(country.save(flush: true)){
-				render status: CREATED
-			} else {
-				respond country.errors
-			}				
-		}
+
+		if(country.save(flush: true)){
+			render status: HttpStatus.CREATED
+		} else {
+			respond country.errors
+		}				
 }
 	
 @Transactional
 	def delete(Country country) {
 		if(!country) {
-			render status: NOT_FOUND
+			render status: HttpStatus.NOT_FOUND
 		}
 		else {
 			if (country.hasErrors()){
 				respond country.errors
 			} else {
 				country.delete(flush: true)
-				render status: NO_CONTENT
+				render status: HttpStatus.NO_CONTENT
 			}
 		}
 	}
