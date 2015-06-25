@@ -24,7 +24,8 @@ class Band {
 	]
 	
 	static mappedBy = [
-		postulated: "bandsPostulants"
+		postulated: "bandsPostulants",
+		artists: "none"
 	]
 	
 	static belongsTo = [Artist]

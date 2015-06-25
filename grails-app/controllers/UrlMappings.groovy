@@ -72,6 +72,54 @@ class UrlMappings {
 			"/$id"			(controller: "photos", action: "update", method: "PUT")
 			"/$id"			(controller: "photos", action: "delete", method: "DELETE")
 		}
+		
+		group "/disc", {
+			"/"		(controller: "disc", action: "index", method: "GET")
+			"/$id"	(controller: "disc", action: "show", method: "GET")
+			"/"		(controller: "disc", action: "save", method: "POST")
+			"/$id"	(controller: "disc", action: "update", method: "PUT")
+			"/$id"	(controller: "disc", action: "delete", method: "DELETE")
+		}
+		
+		group "/band", {
+			"/"		(controller: "band", action: "index", method: "GET")
+			"/$id"	(controller: "band", action: "show", method: "GET")
+			"/"		(controller: "band", action: "save", method: "POST")
+			"/$id"	(controller: "band", action: "update", method: "PUT")
+			"/$id"	(controller: "band", action: "delete", method: "DELETE")
+		}
+		
+		group "/bar", {
+			"/"		(controller: "bar", action: "index", method: "GET")
+			"/$id"	(controller: "bar", action: "show", method: "GET")
+			"/"		(controller: "bar", action: "save", method: "POST")
+			"/$id"	(controller: "bar", action: "update", method: "PUT")
+			"/$id"	(controller: "bar", action: "delete", method: "DELETE")
+		}
+
+		group "/artist", {
+			"/"		(controller: "artist", action: "index", method: "GET")
+			"/$id"	(controller: "artist", action: "show", method: "GET")
+			"/"		(controller: "artist", action: "save", method: "POST")
+			"/$id"	(controller: "artist", action: "update", method: "PUT")
+			"/$id"	(controller: "artist", action: "delete", method: "DELETE")
+		}
+		
+		group "/event", {
+			"/"		(controller: "event", action: "index", method: "GET")
+			"/$id"	(controller: "event", action: "show", method: "GET")
+			"/"		(controller: "event", action: "save", method: "POST")
+			"/$id"	(controller: "event", action: "update", method: "PUT")
+			"/$id"	(controller: "event", action: "delete", method: "DELETE")
+		}
+		
+		group "/postulate", {
+			"/"		(controller: "postulate", action: "index", method: "GET")
+			"/$id"	(controller: "postulate", action: "show", method: "GET")
+			"/"		(controller: "postulate", action: "save", method: "POST")
+			"/$id"	(controller: "postulate", action: "update", method: "PUT")
+			"/$id"	(controller: "postulate", action: "delete", method: "DELETE")
+		}
 
         "/"(view:"/index")
         "500"(view:'/error')
