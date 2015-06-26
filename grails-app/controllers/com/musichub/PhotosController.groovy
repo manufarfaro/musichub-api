@@ -18,6 +18,31 @@ class PhotosController {
 	}
 
 	@Transactional
+	def save(Photo photo) {
+		if(!photo) {
+			render status: HttpStatus.NOT_FOUND
+		}
+		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
+			String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifmk1cUhUaU54NDBuelFIb3NPNFpodjJqWDY2RmtaNjNNa2NQcFdSQkI1Umc")
+			params.fileId = uploadedFileId
+				
+			photo = new Photo(
+				title: params.title,
+				fileId: params.fileId
+			)
+		}
+		if(!photo.hasErrors()){
+			if(photo.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond photo.errors
+			}		
+		} else {
+			respond photo.errors
+		}
+	}
+
+	@Transactional
 	def update(Photo photo) {
 		if(!photo) {
 			render status: HttpStatus.NOT_FOUND

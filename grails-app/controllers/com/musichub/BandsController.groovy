@@ -10,53 +10,55 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class EventController {
+class BandsController {
 	
 	static responseFormats = ['json', 'xml']
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond Event.list(params), model:[countryCount: Event.count()]
+		respond Band.list(params), model:[countryCount: Band.count()]
 	}
 	
-	def show(Event event) {
-		respond event
+	def show(Band band) {
+		respond band
 	}
 	
 	@Transactional
-	def save(Event event) {
-		if(event.save(flush: true)){
+	def save(Band band) {
+		if(band.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond event.errors
+			respond band.errors
 		}
 	}
 	
 	@Transactional
-	def update(Event event) {
-		if(!event) {
+	def update(Band band) {
+		if(!band) {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(event.save(flush: true)){
-			render status: HttpStatus.CREATED
+		if(!band.hasErrors()){
+			if(band.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond band.errors
+			}							
 		} else {
-			respond event.errors
-		}				
+			respond band.errors
+		}
 	}
 	
 	@Transactional
-	def delete(Event event) {
-		if(!event) {
+	def delete(Band band) {
+		if(!band) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		else {
-			if (event.hasErrors()){
-				respond event.errors
-			} else {
-				event.delete(flush: true)
-				render status: HttpStatus.NO_CONTENT
-			}
+		if (!band.hasErrors()){
+			band.delete(flush: true)
+			render status: HttpStatus.NO_CONTENT
+		} else {
+			respond band.errors
 		}
 	}
 }

@@ -62,26 +62,58 @@ class ProfilePhotosController {
 				fileId: params.fileId
 			)
 		}
-
-		User user = auth.getPrincipal()
-		MHUser mhUser = MHUser.findByUsername(user.getUsername())
-		MHUser loggedUser = Artist.get(mhUser.getId()) ?:Bar.get(mhUser.getId())
-		loggedUser = loggedUser ?: mhUser
-
-		if ( (loggedUser instanceof Artist) || (loggedUser instanceof Bar) ) {
-			loggedUser.addToPhotos(photo)
-			if(loggedUser.save(flush: true)){
-				render status: HttpStatus.CREATED
+		if(!photo.hasErrors()) {
+			User user = auth.getPrincipal()
+			MHUser mhUser = MHUser.findByUsername(user.getUsername())
+			MHUser loggedUser = Artist.get(mhUser.getId()) ?:Bar.get(mhUser.getId())
+			loggedUser = loggedUser ?: mhUser
+	
+			if ( (loggedUser instanceof Artist) || (loggedUser instanceof Bar) ) {
+				loggedUser.addToPhotos(photo)
+				if(loggedUser.save(flush: true)){
+					render status: HttpStatus.CREATED
+				} else {
+					respond loggedUser.errors
+				}
 			} else {
-				respond loggedUser.errors
+				render HttpStatus.UNPROCESSABLE_ENTITY
 			}
 		} else {
-			render HttpStatus.UNPROCESSABLE_ENTITY
+			respond photo.errors
 		}
 	}
 
+	@Transactional
 	def update(Photo photo) {
-		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication()
+		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
+			String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifmk1cUhUaU54NDBuelFIb3NPNFpodjJqWDY2RmtaNjNNa2NQcFdSQkI1Umc")
+			params.fileId = uploadedFileId
+			
+			photo = new Photo(
+				title: params.title,
+				fileId: params.fileId
+			)
+		}
+		if(!photo.hasErrors()) {
+			User user = auth.getPrincipal()
+			MHUser mhUser = MHUser.findByUsername(user.getUsername())
+			MHUser loggedUser = Artist.get(mhUser.getId()) ?:Bar.get(mhUser.getId())
+			loggedUser = loggedUser ?: mhUser
+	
+			if ( (loggedUser instanceof Artist) || (loggedUser instanceof Bar) ) {
+				loggedUser.addToPhotos(photo)
+				if(loggedUser.save(flush: true)){
+					render status: HttpStatus.CREATED
+				} else {
+					respond loggedUser.errors
+				}
+			} else {
+				render HttpStatus.UNPROCESSABLE_ENTITY
+			}
+		} else {
+			respond photo.errors
+		}
 	}
 
 	@Transactional

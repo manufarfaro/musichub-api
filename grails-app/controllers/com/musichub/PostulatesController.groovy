@@ -10,53 +10,54 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class CountryController {
-
+class PostulatesController {
+	
 	static responseFormats = ['json', 'xml']
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond Country.list(params), model:[countryCount: Country.count()]
+		respond Postulate.list(params), model:[countryCount: Postulate.count()]
 	}
 	
-	def show(Country country) {
-		respond country
+	def show(Postulate postulate) {
+		respond postulate
 	}
 	
 	@Transactional
-	def save(Country country) {
-		if(country.save(flush: true)){
+	def save(Postulate postulate) {
+		if(postulate.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond country.errors
+			respond postulate.errors
 		}
 	}
 	
 	@Transactional
-	def update(Country country) {
-		if(!country) {
+	def update(Postulate postulate) {
+		if(!postulate) {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(country.save(flush: true)){
+		if(postulate.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond country.errors
+			respond postulate.errors
 		}				
 	}
 	
 	@Transactional
-	def delete(Country country) {
-		if(!country) {
+	def delete(Postulate postulate) {
+		if(!postulate) {
 			render status: HttpStatus.NOT_FOUND
 		}
 		else {
-			if (country.hasErrors()){
-				respond country.errors
+			if (postulate.hasErrors()){
+				respond postulate.errors
 			} else {
-				country.delete(flush: true)
+				postulate.delete(flush: true)
 				render status: HttpStatus.NO_CONTENT
 			}
 		}
 	}
 }
+

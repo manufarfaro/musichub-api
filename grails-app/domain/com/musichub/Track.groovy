@@ -22,8 +22,9 @@ class Track extends MediaType{
 	}
 	
 	static namedQueries = {
-		findRandomTracksByLimit { int limit ->
-			sqlRestriction "1=1 order by rand()"
+		findRandomTracksByLimit { limit ->
+			// PSQL specific random() function
+			sqlRestriction "1=1 order by random()"
 			maxResults(limit ?: 5)
 		}
 	}

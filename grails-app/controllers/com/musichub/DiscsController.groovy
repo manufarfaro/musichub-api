@@ -10,7 +10,7 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class DiscController {
+class DiscsController {
 	
 	static responseFormats = ['json', 'xml']
 	
@@ -25,10 +25,12 @@ class DiscController {
 	
 	@Transactional
 	def save(Disc disc) {
-		if(disc.save(flush: true)){
-			render status: HttpStatus.CREATED
-		} else {
-			respond disc.errors
+		if(!disc.hasErrors()){
+			if(disc.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond disc.errors
+			}			
 		}
 	}
 	
@@ -37,12 +39,13 @@ class DiscController {
 		if(!disc) {
 			render status: HttpStatus.NOT_FOUND
 		}
-
-		if(disc.save(flush: true)){
-			render status: HttpStatus.CREATED
-		} else {
-			respond disc.errors
-		}				
+		if(!disc.hasErrors()){
+			if(disc.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond disc.errors
+			}
+		}
 	}
 	
 	@Transactional
@@ -50,13 +53,11 @@ class DiscController {
 		if(!disc) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		else {
-			if (disc.hasErrors()){
-				respond country.errors
-			} else {
-				disc.delete(flush: true)
-				render status: HttpStatus.NO_CONTENT
-			}
+		if (disc.hasErrors()){
+			respond country.errors
+		} else {
+			disc.delete(flush: true)
+			render status: HttpStatus.NO_CONTENT
 		}
 	}
 }

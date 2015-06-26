@@ -10,54 +10,53 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class ArtistController {
-	
+class CountriesController {
+
 	static responseFormats = ['json', 'xml']
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond Artist.list(params), model:[countryCount: Artist.count()]
+		respond Country.list(params), model:[countryCount: Country.count()]
 	}
 	
-	def show(Artist artist) {
-		respond artist
+	def show(Country country) {
+		respond country
 	}
 	
 	@Transactional
-	def save(Artist artist) {
-		if(artist.save(flush: true)){
+	def save(Country country) {
+		if(country.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond artist.errors
+			respond country.errors
 		}
 	}
 	
 	@Transactional
-	def update(Artist artist) {
-		if(!artist) {
+	def update(Country country) {
+		if(!country) {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(artist.save(flush: true)){
+		if(country.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond artist.errors
-		}				
+			respond country.errors
+		}
 	}
 	
 	@Transactional
-	def delete(Artist artist) {
-		if(!artist) {
+	def delete(Country country) {
+		if(!country) {
 			render status: HttpStatus.NOT_FOUND
 		}
 		else {
-			if (artist.hasErrors()){
-				respond artist.errors
+			if (country.hasErrors()){
+				respond country.errors
 			} else {
-				artist.delete(flush: true)
+				country.delete(flush: true)
 				render status: HttpStatus.NO_CONTENT
 			}
 		}
 	}
 }
-

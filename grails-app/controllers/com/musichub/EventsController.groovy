@@ -10,51 +10,51 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class PostulateController {
+class EventsController {
 	
 	static responseFormats = ['json', 'xml']
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond Postulate.list(params), model:[countryCount: Postulate.count()]
+		respond Event.list(params), model:[countryCount: Event.count()]
 	}
 	
-	def show(Postulate postulate) {
-		respond postulate
+	def show(Event event) {
+		respond event
 	}
 	
 	@Transactional
-	def save(Postulate postulate) {
-		if(postulate.save(flush: true)){
+	def save(Event event) {
+		if(event.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond postulate.errors
+			respond event.errors
 		}
 	}
 	
 	@Transactional
-	def update(Postulate postulate) {
-		if(!postulate) {
+	def update(Event event) {
+		if(!event) {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(postulate.save(flush: true)){
+		if(event.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond postulate.errors
+			respond event.errors
 		}				
 	}
 	
 	@Transactional
-	def delete(Postulate postulate) {
-		if(!postulate) {
+	def delete(Event event) {
+		if(!event) {
 			render status: HttpStatus.NOT_FOUND
 		}
 		else {
-			if (postulate.hasErrors()){
-				respond postulate.errors
+			if (event.hasErrors()){
+				respond event.errors
 			} else {
-				postulate.delete(flush: true)
+				event.delete(flush: true)
 				render status: HttpStatus.NO_CONTENT
 			}
 		}

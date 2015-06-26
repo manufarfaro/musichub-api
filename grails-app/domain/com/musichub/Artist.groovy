@@ -29,7 +29,8 @@ class Artist extends MHUser {
 	
 	static mappedBy = [
 		postulated: "artistsPostulants",
-		postulations: "offerer"
+		postulations: "offerer",
+		bands: "leader"
 	]
 
 	static mappings = {

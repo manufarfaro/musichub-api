@@ -9,7 +9,7 @@ import grails.transaction.*
 import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
-class BarController {
+class BarsController {
 	
 	static responseFormats = ['json', 'xml']
 	

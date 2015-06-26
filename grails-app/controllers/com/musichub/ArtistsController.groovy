@@ -10,51 +10,51 @@ import static org.springframework.http.HttpStatus.*
 import static org.springframework.http.HttpMethod.*
 
 @Transactional(readOnly = true )
-class BandController {
+class ArtistsController {
 	
 	static responseFormats = ['json', 'xml']
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond Band.list(params), model:[countryCount: Band.count()]
+		respond Artist.list(params), model:[countryCount: Artist.count()]
 	}
 	
-	def show(Band band) {
-		respond band
+	def show(Artist artist) {
+		respond artist
 	}
 	
 	@Transactional
-	def save(Band band) {
-		if(band.save(flush: true)){
+	def save(Artist artist) {
+		if(artist.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond band.errors
+			respond artist.errors
 		}
 	}
 	
 	@Transactional
-	def update(Band band) {
-		if(!band) {
+	def update(Artist artist) {
+		if(!artist) {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(band.save(flush: true)){
+		if(artist.save(flush: true)){
 			render status: HttpStatus.CREATED
 		} else {
-			respond band.errors
+			respond artist.errors
 		}				
 	}
 	
 	@Transactional
-	def delete(Band band) {
-		if(!band) {
+	def delete(Artist artist) {
+		if(!artist) {
 			render status: HttpStatus.NOT_FOUND
 		}
 		else {
-			if (band.hasErrors()){
-				respond band.errors
+			if (artist.hasErrors()){
+				respond artist.errors
 			} else {
-				band.delete(flush: true)
+				artist.delete(flush: true)
 				render status: HttpStatus.NO_CONTENT
 			}
 		}
