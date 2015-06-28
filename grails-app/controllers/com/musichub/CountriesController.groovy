@@ -13,16 +13,16 @@ import static org.springframework.http.HttpMethod.*
 class CountriesController {
 
 	static responseFormats = ['json', 'xml']
-	
+
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		respond Country.list(params), model:[countryCount: Country.count()]
 	}
-	
+
 	def show(Country country) {
 		respond country
 	}
-	
+
 	@Transactional
 	def save(Country country) {
 		if(country.save(flush: true)){
@@ -31,7 +31,7 @@ class CountriesController {
 			respond country.errors
 		}
 	}
-	
+
 	@Transactional
 	def update(Country country) {
 		if(!country) {
@@ -44,7 +44,7 @@ class CountriesController {
 			respond country.errors
 		}
 	}
-	
+
 	@Transactional
 	def delete(Country country) {
 		if(!country) {

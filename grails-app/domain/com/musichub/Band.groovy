@@ -43,7 +43,7 @@ class Band {
     }
 	
 	def mapping = {
-		artists	column: "artist_id", joinTable: "artist_band"
+		artists	column: "artist_id", joinTable: "artist_band", lazy: false
 		photos cascade: 'all-delete-orphan'
 	}
 

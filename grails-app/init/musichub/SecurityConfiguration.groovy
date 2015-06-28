@@ -103,11 +103,15 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/events/*",
 					"/postulates/*",
 					"/countries/*",
-					"/profile/*",
 					"/quotes/*",
 					"/roles/*",
 					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
+
+				.antMatchers(
+					HttpMethod.PUT,
+					"/profile/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR') or hasRole('ROLE_ARTIST')")
 
 				.antMatchers(
 					HttpMethod.POST,

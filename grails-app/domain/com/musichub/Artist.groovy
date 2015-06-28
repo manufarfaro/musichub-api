@@ -34,8 +34,7 @@ class Artist extends MHUser {
 	]
 
 	static mappings = {
-		bands	column: "band", joinTable: "artist_band"
-		bands	cascade: 'all-delete-orphan'
+		bands	column: "band", joinTable: "artist_band", cascade: 'all-delete-orphan', lazy: false
 		photos	cascade: 'all-delete-orphan'
 		discs	cascade: 'all-delete-orphan'
 		videos	cascade: 'all-delete-orphan'

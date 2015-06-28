@@ -40,13 +40,17 @@ class UrlMappings {
 
 		group "/profile", {
 			"/"				(controller: "profile", action: "index", method: "GET")
-			"/"				(controller: "profile", action: "update", method: "PUT")
+			"/"		(controller: "profile", action: "update", method: "PUT")
 			"/photos/"		(controller: "profilePhotos", action: "index", method: "GET")
 			"/photos/$id"	(controller: "profilePhotos", action: "show", method: "GET")
 			"/photos/"		(controller: "profilePhotos", action: "save", method: "POST")
 			"/photos/$id"	(controller: "profilePhotos", action: "update", method: "PUT")
 			"/photos/$id"	(controller: "profilePhotos", action: "delete", method: "DELETE")
-
+			"/bands/"		(controller: "profileBands", action: "index", method: "GET")
+			"/bands/$id"	(controller: "profileBands", action: "show", method: "GET")
+			"/bands/"		(controller: "profileBands", action: "save", method: "POST")
+			"/bands/$id"	(controller: "profileBands", action: "update", method: "PUT")
+			"/bands/$id"	(controller: "profileBands", action: "delete", method: "DELETE")
 		}
 
 		group "/users" , {

@@ -55,7 +55,6 @@ class TracksController {
 		if(!track) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		println track.getName()
 		if(!track.hasErrors()) {
 			if(track.save(flush: true)){
 				render status: HttpStatus.CREATED
