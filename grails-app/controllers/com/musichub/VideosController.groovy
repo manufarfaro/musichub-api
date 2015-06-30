@@ -1,6 +1,9 @@
 package com.musichub
 
 
+import org.springframework.http.HttpStatus;
+
+import com.musichub.security.util.UserUtils;
 import com.musichub.util.google.services.Upload;
 
 import grails.transaction.Transactional;
@@ -21,10 +24,10 @@ class VideosController {
 
 	@Transactional
 	def save(Video video) {
+		def loggedUser = UserUtils.getLoggedUser()
+
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			println("hasFile")
 			String uploadedFileId = Upload.getInstance().toYouTube(params.file.bytes, "MusicHub - ${params.title}")
-			println("uploadedFileId: ${uploadedFileId}")
 			params.fileId = uploadedFileId
 			
 			video = new Video(
@@ -32,11 +35,17 @@ class VideosController {
 				fileId: params.fileId
 			)
 		}
-		
-		if(video.save(flush: true)){
-			render status: CREATED
+
+		if(!video.hasErrors()) {
+			if(params.band_id) {
+				Band band = Band.get(params.int('band_id'))
+				band.addToVideos(video).save(flush: true)
+			} else {
+				loggedUser.addToVideos(video).save(flush: true)
+			}
+			render status: HttpStatus.CREATED
 		} else {
-			respond video.errors
+			render video.errors
 		}
 	}
 
@@ -45,24 +54,36 @@ class VideosController {
 		if(!video) {
 			render status: NOT_FOUND
 		}
-		else {
-			
-			if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
-				String uploadedFileId = Upload.getInstance().toYouTube(params.file.bytes, "MusicHub - ${params.title}")
-				params.fileId = uploadedFileId
-				
-				video = new Video(
-					title: params.title,
-					fileId: params.fileId
-				)
-			}
-			
-			if(video.save(flush: true)){
-				render status: CREATED
+
+		def loggedUser = UserUtils.getLoggedUser()
+
+		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+			String uploadedFileId = Upload.getInstance().toYouTube(params.file.bytes, "MusicHub - ${params.title}")
+			params.fileId = uploadedFileId
+
+			video = new Video(
+				title: params.title,
+				fileId: params.fileId
+			)
+		}
+
+		Boolean isOwner = false
+
+		isOwner = Band.get(params.int('band_id')).videos.find { it.equals(video) } ? true : isOwner
+		isOwner = loggedUser.videos.find { it.equals(video) } ? true : isOwner
+		isOwner = loggedUser.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
+
+		if(isOwner) {
+			if(!video.hasErrors()) {
+				video.save(flush: true)
+				render status: HttpStatus.CREATED
 			} else {
 				respond video.errors
 			}
+		} else {
+			render status: HttpStatus.FORBIDDEN
 		}
+		
 	}
 
 	@Transactional
@@ -70,13 +91,19 @@ class VideosController {
 		if(!video) {
 			render status: NOT_FOUND
 		}
-		else {
-			if (video.hasErrors()){
-				respond video.errors
+
+		def loggedUser = UserUtils.getLoggedUser()
+
+		if(!video.hasErrors()) {
+			if(params.band_id) {
+				Band band = Band.get(params.int('band_id'))
+				band.removeFromVideos(video)
 			} else {
-				video.delete(flush: true)
-				render status: NO_CONTENT
+				loggedUser.removeFromVideos(video)
 			}
+			render status: HttpStatus.NO_CONTENT
+		} else {
+			render video.errors
 		}
 	}
 

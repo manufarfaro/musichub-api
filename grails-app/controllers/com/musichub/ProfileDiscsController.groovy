@@ -1,19 +1,15 @@
 package com.musichub
 
-import grails.transaction.Transactional;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import com.google.api.client.http.HttpStatusCodes;
 import com.musichub.security.util.UserUtils;
-import com.musichub.util.google.services.Upload;
 
-@Transactional(readOnly = true)
-class ProfilePhotosController {
+import grails.transaction.Transactional;
 
+@Transactional(readOnly = true )
+class ProfileDiscsController {
 	static responseFormats = ['json', 'xml']
 
 	def index() {
@@ -24,7 +20,7 @@ class ProfilePhotosController {
 			}
 		}
 		if (loggedUser){
-			respond loggedUser.getPhotos()
+			respond loggedUser.getDiscs()
 		} else {
 			render status: HttpStatus.UNAUTHORIZED
 		}

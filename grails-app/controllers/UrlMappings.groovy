@@ -14,12 +14,12 @@ class UrlMappings {
 			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
 		}
 
-		group "/country", {
-			"/"		(controller: "country", action: "index", method: "GET")
-			"/$id"	(controller: "country", action: "show", method: "GET")
-			"/"		(controller: "country", action: "save", method: "POST")
-			"/$id"	(controller: "country", action: "update", method: "PUT")
-			"/$id"	(controller: "country", action: "delete", method: "DELETE")
+		group "/countries", {
+			"/"		(controller: "countries", action: "index", method: "GET")
+			"/$id"	(controller: "countries", action: "show", method: "GET")
+			"/"		(controller: "countries", action: "save", method: "POST")
+			"/$id"	(controller: "countries", action: "update", method: "PUT")
+			"/$id"	(controller: "countries", action: "delete", method: "DELETE")
 		}
 
 		group "/roles", {
@@ -39,31 +39,27 @@ class UrlMappings {
 		}
 
 		group "/profile", {
-			"/"				(controller: "profile", action: "index", method: "GET")
-			"/"		(controller: "profile", action: "update", method: "PUT")
-			"/photos/"		(controller: "profilePhotos", action: "index", method: "GET")
-			"/photos/$id"	(controller: "profilePhotos", action: "show", method: "GET")
-			"/photos/"		(controller: "profilePhotos", action: "save", method: "POST")
-			"/photos/$id"	(controller: "profilePhotos", action: "update", method: "PUT")
-			"/photos/$id"	(controller: "profilePhotos", action: "delete", method: "DELETE")
-			"/bands/"		(controller: "profileBands", action: "index", method: "GET")
-			"/bands/$id"	(controller: "profileBands", action: "show", method: "GET")
-			"/bands/"		(controller: "profileBands", action: "save", method: "POST")
-			"/bands/$id"	(controller: "profileBands", action: "update", method: "PUT")
-			"/bands/$id"	(controller: "profileBands", action: "delete", method: "DELETE")
+			"/"									(controller: "profile", action: "index", method: "GET")
+			"/"									(controller: "profile", action: "update", method: "PUT")
+			"/photos"							(controller: "profilePhotos", action: "index", method: "GET")
+			"/bands"							(controller: "profileBands", action: "index", method: "GET")
+			"/discs"							(controller: "profileDiscs", action: "index", method: "GET")
+			"/videos"							(controller: "profileVideos", action: "index", method: "GET")
+			"/postulated"						(controller: "profilePostulates", action: "indexPostulates", method: "GET")
+			"/postulations"						(controller: "profilePostulates", action: "indexPostulations", method: "GET")
 		}
 
 		group "/users" , {
-			"/register"			(controller: "users", action: "register", method: "post")
-			"/resetPassword"	(controller: "users", action: "resetPassword", method: "post")
-			"/confirmToken"		(controller: "users", action: "confirmToken", method: "post")
+			"/register/"				(controller: "users", action: "register", method: "POST")
+			"/resetPassword/$id"		(controller: "users", action: "resetPassword", method: "POST")
+			"/confirmToken/$token"		(controller: "users", action: "confirmResetPasswordToken", method: "POST")
+			"/changePassword/$id"		(controller: "users", action: "changePassword", method: "POST")
 		}
 
 		group "/tracks", {
 			"/"				(controller: "tracks", action: "index", method: "GET")
 			"/$id"			(controller: "tracks", action: "show", method: "GET")
 			"/random"		(controller: "tracks", action: "random", method: "GET")
-			"/"				(controller: "tracks", action: "save", method: "POST")
 			"/$id"			(controller: "tracks", action: "update", method: "PUT")
 			"/$id"			(controller: "tracks", action: "delete", method: "DELETE")
 		}
@@ -78,19 +74,32 @@ class UrlMappings {
 		}
 		
 		group "/discs", {
-			"/"		(controller: "discs", action: "index", method: "GET")
-			"/$id"	(controller: "discs", action: "show", method: "GET")
-			"/"		(controller: "discs", action: "save", method: "POST")
-			"/$id"	(controller: "discs", action: "update", method: "PUT")
-			"/$id"	(controller: "discs", action: "delete", method: "DELETE")
+			"/"					(controller: "discs", action: "index", method: "GET")
+			"/$id"				(controller: "discs", action: "show", method: "GET")
+			"/"					(controller: "discs", action: "save", method: "POST")
+			"/$id"				(controller: "discs", action: "update", method: "PUT")
+			"/$id"				(controller: "discs", action: "delete", method: "DELETE")
+			"/$disc_id/tracks"	(controller: "tracks", action: "save", method: "POST")
 		}
 		
 		group "/bands", {
-			"/"		(controller: "bands", action: "index", method: "GET")
-			"/$id"	(controller: "bands", action: "show", method: "GET")
-			"/"		(controller: "bands", action: "save", method: "POST")
-			"/$id"	(controller: "bands", action: "update", method: "PUT")
-			"/$id"	(controller: "bands", action: "delete", method: "DELETE")
+			"/"													(controller: "bands", action: "index", method: "GET")
+			"/$id"												(controller: "bands", action: "show", method: "GET")
+			"/"													(controller: "bands", action: "save", method: "POST")
+			"/$id"												(controller: "bands", action: "update", method: "PUT")
+			"/$id"												(controller: "bands", action: "delete", method: "DELETE")
+			"/$band_id/photos/"									(controller: "photos", action: "save", method: "POST")
+			"/$band_id/photos/$photo_id"						(controller: "photos", action: "update", method: "PUT")
+			"/$band_id/photos/$photo_id"						(controller: "photos", action: "delete", method: "DELETE")
+			"/$band_id/videos/"									(controller: "videos", action: "save", method: "POST")
+			"/$band_id/videos/$video_id"						(controller: "videos", action: "update", method: "PUT")
+			"/$band_id/videos/$video_id"						(controller: "videos", action: "delete", method: "DELETE")
+			"/$band_id/discs/"									(controller: "discs", action: "save", method: "POST")
+			"/$band_id/discs/$disc_id"							(controller: "discs", action: "update", method: "PUT")
+			"/$band_id/discs/$disc_id"							(controller: "discs", action: "delete", method: "DELETE")
+			"/$band_id/artists/$artist_id/add"					(controller: "bands", action: "addArtist", method: "POST")
+			"/$band_id/postulates/$postulate_id/postulate"		(controller: "postulates", action: "postulate", method: "POST")
+			
 		}
 		
 		group "/bars", {
@@ -118,11 +127,12 @@ class UrlMappings {
 		}
 		
 		group "/postulates", {
-			"/"		(controller: "postulates", action: "index", method: "GET")
-			"/$id"	(controller: "postulates", action: "show", method: "GET")
-			"/"		(controller: "postulates", action: "save", method: "POST")
-			"/$id"	(controller: "postulates", action: "update", method: "PUT")
-			"/$id"	(controller: "postulates", action: "delete", method: "DELETE")
+			"/"							(controller: "postulates", action: "index", method: "GET")
+			"/$id"						(controller: "postulates", action: "show", method: "GET")
+			"/"							(controller: "postulates", action: "save", method: "POST")
+			"/$id"						(controller: "postulates", action: "update", method: "PUT")
+			"/$id"						(controller: "postulates", action: "delete", method: "DELETE")
+			"/$postulate_id/postulate"	(controller: "postulates", action: "postulate", method: "POST")
 		}
 
         "/"(view:"/index")

@@ -20,13 +20,28 @@ class ArtistsController {
 	}
 	
 	def show(Artist artist) {
+		artist  =  Artist.withCriteria {
+			or {
+				eq('id', params.long('id'))
+				eq('slug', params.id)
+			}
+			maxResults 1
+		}[0]
 		respond artist
 	}
 	
 	@Transactional
 	def save(Artist artist) {
-		if(artist.save(flush: true)){
-			render status: HttpStatus.CREATED
+		if(!artist) {
+			render status: HttpStatus.NOT_FOUND
+		}
+
+		if (!artist.hasErrors()) {
+			if(artist.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond artist.errors
+			}
 		} else {
 			respond artist.errors
 		}
@@ -38,8 +53,12 @@ class ArtistsController {
 			render status: HttpStatus.NOT_FOUND
 		}
 
-		if(artist.save(flush: true)){
-			render status: HttpStatus.CREATED
+		if (!artist.hasErrors()) {
+			if(artist.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond artist.errors
+			}
 		} else {
 			respond artist.errors
 		}				
@@ -50,13 +69,12 @@ class ArtistsController {
 		if(!artist) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		else {
-			if (artist.hasErrors()){
-				respond artist.errors
-			} else {
-				artist.delete(flush: true)
-				render status: HttpStatus.NO_CONTENT
-			}
+
+		if (artist.hasErrors()){
+			respond artist.errors
+		} else {
+			artist.delete(flush: true)
+			render status: HttpStatus.NO_CONTENT
 		}
 	}
 }

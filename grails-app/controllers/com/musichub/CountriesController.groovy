@@ -25,8 +25,15 @@ class CountriesController {
 
 	@Transactional
 	def save(Country country) {
-		if(country.save(flush: true)){
-			render status: HttpStatus.CREATED
+		if(!country) {
+			render status: HttpStatus.NOT_FOUND
+		}
+		if(!country.hasErrors()){
+			if(country.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond country.errors
+			}
 		} else {
 			respond country.errors
 		}
@@ -37,9 +44,12 @@ class CountriesController {
 		if(!country) {
 			render status: HttpStatus.NOT_FOUND
 		}
-
-		if(country.save(flush: true)){
-			render status: HttpStatus.CREATED
+		if(!country.hasErrors()){
+			if(country.save(flush: true)){
+				render status: HttpStatus.CREATED
+			} else {
+				respond country.errors
+			}
 		} else {
 			respond country.errors
 		}
@@ -50,13 +60,12 @@ class CountriesController {
 		if(!country) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		else {
-			if (country.hasErrors()){
-				respond country.errors
-			} else {
-				country.delete(flush: true)
-				render status: HttpStatus.NO_CONTENT
-			}
+
+		if (country.hasErrors()){
+			respond country.errors
+		} else {
+			country.delete(flush: true)
+			render status: HttpStatus.NO_CONTENT
 		}
 	}
 }

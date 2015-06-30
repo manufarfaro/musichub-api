@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 
+import com.musichub.security.util.UserUtils;
+
 import sun.net.httpserver.Request;
 import grails.transaction.*
 import static org.springframework.http.HttpStatus.*
@@ -45,6 +47,8 @@ class DiscsController {
 			} else {
 				respond disc.errors
 			}
+		} else {
+			respond disc.errors
 		}
 	}
 	
@@ -53,11 +57,23 @@ class DiscsController {
 		if(!disc) {
 			render status: HttpStatus.NOT_FOUND
 		}
-		if (disc.hasErrors()){
-			respond country.errors
+
+		def loggedUser = UserUtils.getLoggedUser()
+
+		Boolean isOwner = false
+		isOwner = disc.artist.equals(loggedUser) ? true : isOwner
+		isOwner = loggedUser.bands.find { it.equals(disc.band) } ? true : isOwner
+		isOwner = loggedUser.authorities.find { it.equals('ROLE_ADMIN') } ? true : isOwner
+
+		if (isOwner) {
+			if (disc.hasErrors()){
+				respond country.errors
+			} else {
+				disc.delete(flush: true)
+				render status: HttpStatus.NO_CONTENT
+			}
 		} else {
-			disc.delete(flush: true)
-			render status: HttpStatus.NO_CONTENT
+			render status: HttpStatus.FORBIDDEN
 		}
 	}
 }

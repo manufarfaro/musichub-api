@@ -81,10 +81,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					HttpMethod.DELETE,
 					"/tracks/*",
 					"/discs/*",
-					"/bands/*",
 					"/bars/*",
 					"/artists/*",
-					"/events/*",
 					"/postulates/*",
 					"/countries/*",
 					"/profile/*",
@@ -94,13 +92,26 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
+					HttpMethod.DELETE,
+					"/events/*",
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
+					HttpMethod.DELETE,
+					"/bands/*",
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ARTIST')")
+
+				.antMatchers(
+					HttpMethod.DELETE,
+					"/photos/*"
+				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
 					HttpMethod.PUT,
 					"/tracks/*",
 					"/discs/*",
-					"/bands/*",
 					"/bars/*",
 					"/artists/*",
-					"/events/*",
 					"/postulates/*",
 					"/countries/*",
 					"/quotes/*",
@@ -114,13 +125,41 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR') or hasRole('ROLE_ARTIST')")
 
 				.antMatchers(
+					HttpMethod.PUT,
+					"/bands/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ARTIST')")
+
+				.antMatchers(
+					HttpMethod.PUT,
+					"/events/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
+					HttpMethod.PUT,
+					"/photos/*"
+				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
+					HttpMethod.POST,
+					"/bands/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ARTIST')")
+
+				.antMatchers(
+					HttpMethod.POST,
+					"/events/*"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
+					HttpMethod.POST,
+					"/photos/*"
+				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
 					HttpMethod.POST,
 					"/tracks/*",
 					"/discs/*",
-					"/bands/*",
 					"/bars/*",
 					"/artists/*",
-					"/events/*",
 					"/postulates/*",
 					"/countries/*",
 					"/profile/",
