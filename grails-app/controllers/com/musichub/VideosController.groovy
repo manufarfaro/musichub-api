@@ -4,6 +4,7 @@ package com.musichub
 import org.springframework.http.HttpStatus;
 
 import com.musichub.security.util.UserUtils;
+import com.musichub.util.cloudinary.CloudinaryUpload;
 import com.musichub.util.google.services.Upload;
 
 import grails.transaction.Transactional;
@@ -25,9 +26,8 @@ class VideosController {
 	@Transactional
 	def save(Video video) {
 		def loggedUser = UserUtils.getLoggedUser()
-
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			String uploadedFileId = Upload.getInstance().toYouTube(params.file.bytes, "MusicHub - ${params.title}")
+			String uploadedFileId = CloudinaryUpload.video(params.file.bytes)
 			params.fileId = uploadedFileId
 			
 			video = new Video(
@@ -45,7 +45,7 @@ class VideosController {
 			}
 			render status: HttpStatus.CREATED
 		} else {
-			render video.errors
+			respond video.errors
 		}
 	}
 
@@ -58,7 +58,7 @@ class VideosController {
 		def loggedUser = UserUtils.getLoggedUser()
 
 		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
-			String uploadedFileId = Upload.getInstance().toYouTube(params.file.bytes, "MusicHub - ${params.title}")
+			String uploadedFileId = CloudinaryUpload.video(params.file.bytes)
 			params.fileId = uploadedFileId
 
 			video = new Video(
@@ -103,7 +103,7 @@ class VideosController {
 			}
 			render status: HttpStatus.NO_CONTENT
 		} else {
-			render video.errors
+			respond video.errors
 		}
 	}
 
