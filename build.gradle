@@ -75,6 +75,7 @@ dependencies {
 	compile 'javax.mail:mail:1.5.0-b01'
 	compile 'javax.activation:activation:1.1.1'
 	compile 'org.apache.commons:commons-lang3:3.4'
+	compile 'com.cloudinary:cloudinary:1.0.14'
 
     runtime "org.grails.plugins:asset-pipeline"
     runtime "org.grails.plugins:scaffolding"

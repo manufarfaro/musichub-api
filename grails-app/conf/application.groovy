@@ -1,5 +1,15 @@
-google{
-	secrets{
+cloudinary {
+	cloud{
+		name = changeme		
+	}
+	api {
+		key = changeme
+		secret = changeme
+	}
+}
+
+google {
+	secrets {
 		path = "credentials/musichub-api-google.json";
 	}
 	credentials {
