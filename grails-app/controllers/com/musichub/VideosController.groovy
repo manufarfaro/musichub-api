@@ -16,7 +16,12 @@ class VideosController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Video.list(params), model:[videoCount: Video.count()]
+	}
+
+	def random(Integer limit) {
+		respond Video.findRandomVideosByLimit(limit ?: 5).list()
 	}
 
 	def show(Video video) {

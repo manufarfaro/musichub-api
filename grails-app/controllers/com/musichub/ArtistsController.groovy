@@ -16,6 +16,7 @@ class ArtistsController {
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Artist.list(params), model:[countryCount: Artist.count()]
 	}
 	

@@ -16,6 +16,7 @@ class CountriesController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Country.list(params), model:[countryCount: Country.count()]
 	}
 

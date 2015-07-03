@@ -18,6 +18,7 @@ class BandsController {
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		def bandList = Band.list(params)
 		if(bandList.size() < 1) {
 			render (contentType: "application/json") {

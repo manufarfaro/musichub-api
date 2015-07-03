@@ -31,11 +31,12 @@ class UrlMappings {
 		}
 
 		group "/videos", {
-			"/"		(controller: "videos", action: "index", method: "GET")
-			"/$id"	(controller: "videos", action: "show", method: "GET")
-			"/"		(controller: "videos", action: "save", method: "POST")
-			"/$id"	(controller: "videos", action: "update", method: "PUT")
-			"/$id"	(controller: "videos", action: "delete", method: "DELETE")
+			"/"			(controller: "videos", action: "index", method: "GET")
+			"/$id"		(controller: "videos", action: "show", method: "GET")
+			"/random"	(controller: "videos", action: "random", method: "GET")
+			"/"			(controller: "videos", action: "save", method: "POST")
+			"/$id"		(controller: "videos", action: "update", method: "PUT")
+			"/$id"		(controller: "videos", action: "delete", method: "DELETE")
 		}
 
 		group "/profile", {

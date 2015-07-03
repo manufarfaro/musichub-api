@@ -15,4 +15,12 @@ class Video extends MediaType{
 		format	nullable: true, maxSize: 10
 		url		nullable: true, blank: true, url: true
 	}
+
+	static namedQueries = {
+		findRandomVideosByLimit { limit ->
+			// PSQL specific random() function
+			sqlRestriction "1=1 order by random()"
+			maxResults(limit ?: 5)
+		}
+	}
 }

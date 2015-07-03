@@ -12,4 +12,11 @@ class Photo extends MediaType{
 		title	blank: false,minSize: 2, maxSize: 30
 	}
 
+	static namedQueries = {
+		findRandomPhotosByLimit { limit ->
+			// PSQL specific random() function
+			sqlRestriction "1=1 order by random()"
+			maxResults(limit ?: 5)
+		}
+	}
 }

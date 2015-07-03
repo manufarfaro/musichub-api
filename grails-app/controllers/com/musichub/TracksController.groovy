@@ -13,6 +13,7 @@ class TracksController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Track.list(params), model:[trackCount: Track.count()]
 	}
 

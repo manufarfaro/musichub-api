@@ -12,7 +12,12 @@ class PhotosController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Photo.list(params), model:[photoCount: Photo.count()]
+	}
+
+	def random(Integer limit) {
+		respond Photo.findRandomPhotosByLimit(limit ?: 5).list()
 	}
 
 	def show(Photo photo) {

@@ -17,6 +17,7 @@ class PostulatesController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Postulate.list(params), model:[countryCount: Postulate.count()]
 	}
 

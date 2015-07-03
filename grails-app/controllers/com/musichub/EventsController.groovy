@@ -18,6 +18,7 @@ class EventsController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		params.order = 'desc'
 		respond Event.list(params), model:[countryCount: Event.count()]
 	}
 
