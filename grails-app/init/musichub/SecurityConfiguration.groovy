@@ -79,21 +79,21 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.DELETE,
-					"/tracks/*",
-					"/discs/*",
 					"/bars/*",
 					"/artists/*",
-					"/postulates/*",
 					"/countries/*",
 					"/profile/*",
 					"/quotes/*",
 					"/roles/*",
-					"/videos/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.DELETE,
 					"/events/*",
+					"/tracks/*",
+					 "/discs/*",
+					"/postulates/*",
+					"/videos/*"
 				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR')")
 
 				.antMatchers(
@@ -108,20 +108,20 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.PUT,
-					"/tracks/*",
-					"/discs/*",
 					"/bars/*",
 					"/artists/*",
-					"/postulates/*",
 					"/countries/*",
 					"/quotes/*",
-					"/roles/*",
-					"/videos/*"
+					"/roles/*"
 				).access("hasRole('ROLE_ADMIN')")
 
 				.antMatchers(
 					HttpMethod.PUT,
-					"/profile/*"
+					"/profile/*",
+					"/postulates/*",
+					"/tracks/*",
+					"/discs/*",
+					"/videos/*"
 				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR') or hasRole('ROLE_ARTIST')")
 
 				.antMatchers(
@@ -151,21 +151,21 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.POST,
-					"/photos/*"
+					"/photos/*",
+					"/postulates/*",
+					"/videos/",
+					"/tracks/*",
+					"/discs/*"
 				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
 
 				.antMatchers(
 					HttpMethod.POST,
-					"/tracks/*",
-					"/discs/*",
 					"/bars/*",
 					"/artists/*",
-					"/postulates/*",
 					"/countries/*",
 					"/profile/",
 					"/quotes/",
-					"/roles/",
-					"/videos/"
+					"/roles/"
 				).access("hasRole('ROLE_ADMIN')")
 
 		http.logout().logoutSuccessHandler(new NoRedirectLogoutSuccessHandler())

@@ -58,7 +58,7 @@ class VideosController {
 
 		def loggedUser = UserUtils.getLoggedUser()
 
-		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
+		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
 			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
 
 			video = new Video(
@@ -71,9 +71,9 @@ class VideosController {
 
 		Boolean isOwner = false
 
-		isOwner = Band.get(params.int('band_id')).videos.find { it.equals(video) } ? true : isOwner
-		isOwner = loggedUser.videos.find { it.equals(video) } ? true : isOwner
-		isOwner = loggedUser.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
+		isOwner = Band.get(params.int('band_id'))?.videos.find { it.equals(video) } ? true : isOwner
+		isOwner = loggedUser?.videos.find { it.equals(video) } ? true : isOwner
+		isOwner = loggedUser?.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
 
 		if(isOwner) {
 			if(!video.hasErrors()) {

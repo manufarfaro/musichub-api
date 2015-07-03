@@ -18,9 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional(readOnly=true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		println ("------ Trying with user: $username")
 		MHUser user = MHUser.findByUsername(username)
-		println ("------ User from Database: $user")
 		List<GrantedAuthority> authorities = buildUserAuthority(user);
 		return buildUserForAuthentication(user, authorities);
 
