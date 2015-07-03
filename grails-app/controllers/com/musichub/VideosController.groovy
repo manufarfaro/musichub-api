@@ -27,12 +27,13 @@ class VideosController {
 	def save(Video video) {
 		def loggedUser = UserUtils.getLoggedUser()
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			String uploadedFileId = CloudinaryUpload.video(params.file.bytes)
-			params.fileId = uploadedFileId
+			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
 			
 			video = new Video(
 				title: params.title,
-				fileId: params.fileId
+				fileId: uploadedFileData?.public_id?.toString(),
+				url: uploadedFileData?.secure_url?.toString(),
+				format: uploadedFileData?.format?.toString()
 			)
 		}
 
@@ -58,12 +59,13 @@ class VideosController {
 		def loggedUser = UserUtils.getLoggedUser()
 
 		if (params.fileId.isEmpty() && params.file && params.file?.bytes.size() > 0) {
-			String uploadedFileId = CloudinaryUpload.video(params.file.bytes)
-			params.fileId = uploadedFileId
+			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
 
 			video = new Video(
 				title: params.title,
-				fileId: params.fileId
+				fileId: uploadedFileData?.public_id?.toString(),
+				url: uploadedFileData?.secure_url?.toString(),
+				format: uploadedFileData?.format?.toString()
 			)
 		}
 

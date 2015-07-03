@@ -1,6 +1,5 @@
 package com.musichub.util.mail.services
 
-import org.apache.catalina.WebResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

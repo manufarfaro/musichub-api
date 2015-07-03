@@ -17,6 +17,6 @@ class CloudinaryUpload {
 			api_secret: ctx.config.getProperty('cloudinary.api.secret')
 		])
 		Map uploadResult = cloudinary.uploader().upload( file, [ resource_type: "video" ] )
-		return uploadResult?.public_id?.toString()
+		return uploadResult
 	}
 }

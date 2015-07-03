@@ -61,7 +61,9 @@ class ArtistDataGenerator {
 	protected static void addVideos(Artist artist) {
 		Video videoPromo = new Video(
 			title: 'Promo Banda',
-			fileId: 'cmUUj_ZsFlc'
+			fileId: 'dxygkyyloux1oixgvnpf',
+			format: 'mp4',
+			url: 'https://res.cloudinary.com/musichub/video/upload/v1435740103/dxygkyyloux1oixgvnpf.mp4'
 		)
 		artist
 			.addToVideos(videoPromo)
