@@ -33,7 +33,6 @@ class VideosController {
 		def loggedUser = UserUtils.getLoggedUser()
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
 			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
-			
 			video = new Video(
 				title: params.title,
 				fileId: uploadedFileData?.public_id?.toString(),
@@ -62,7 +61,6 @@ class VideosController {
 		}
 
 		def loggedUser = UserUtils.getLoggedUser()
-
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
 			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
 

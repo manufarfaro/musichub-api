@@ -9,7 +9,7 @@ class CloudinaryUpload {
 
 	static ApplicationContextHolder applicationContextHolder = ApplicationContextHolder.instance
 
-	public static String video(byte[] file) {
+	public static Map video(byte[] file) {
 		GrailsApplication ctx = applicationContextHolder.getGrailsApplication()
 		Cloudinary cloudinary = new Cloudinary([
 			cloud_name: ctx.config.getProperty('cloudinary.cloud.name'),

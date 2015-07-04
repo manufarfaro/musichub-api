@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 
 import com.musichub.security.util.UserUtils;
+import com.musichub.util.google.services.Upload;
 
 import sun.net.httpserver.Request;
 import grails.transaction.*
@@ -28,9 +29,22 @@ class EventsController {
 
 	@Transactional
 	def save(Event event) {
-		Bar loggedUser = UserUtils.getLoggedUser()
+		def loggedUser = UserUtils.getLoggedUser()
 		if (loggedUser.class.equals(Bar)) {
 			event.setBar(loggedUser)
+			if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
+				String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifmk1cUhUaU54NDBuelFIb3NPNFpodjJqWDY2RmtaNjNNa2NQcFdSQkI1Umc")
+				params.fileId = uploadedFileId
+					
+				Photo photo = new Photo(
+					title: 'flyer',
+					fileId: params.fileId
+				).save(flush: true)
+
+				event.photo = photo
+			}
+		} else {
+			render status: HttpStatus.FORBIDDEN
 		}
 		event.validate()
 		if (!event.hasErrors()) {
@@ -50,7 +64,7 @@ class EventsController {
 		Bar loggedUser = UserUtils.getLoggedUser()
 		def isOwner = false
 		
-		if (loggedUser.class.equals(Artist)) {
+		if (loggedUser.class.equals(Bar)) {
 			if (event.bar.equals(loggedUser) || loggedUser.authorities.find{it == 'ROLE_ADMIN'}) {
 				isOwner = true
 			} else {
@@ -59,6 +73,17 @@ class EventsController {
 		}
 
 		if(isOwner) {
+			if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
+				String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifmk1cUhUaU54NDBuelFIb3NPNFpodjJqWDY2RmtaNjNNa2NQcFdSQkI1Umc")
+				params.fileId = uploadedFileId
+					
+				Photo photo = new Photo(
+					title: 'flyer',
+					fileId: params.fileId
+				).save(flush: true)
+
+				event.photo = photo
+			}
 			if (!event.hasErrors()) {
 				if(event.save(flush: true)){
 					render status: HttpStatus.CREATED

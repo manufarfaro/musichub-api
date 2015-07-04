@@ -30,6 +30,8 @@ class Upload {
 
 	private final Log logger = LogFactory.getLog(getClass())
 
+	private static String VIDEO_FILE_FORMAT = "video/*";
+	
 	protected Upload(){}
 	
 	private static Upload instance = null
@@ -108,18 +110,15 @@ class Upload {
 			return false
 		}
 	}
-	public static String toYouTube(byte[] file, String name) {
+	public String toYouTube(byte[] file, String name) {
 		Credential googleCredentials = GoogleAuth.authorize()
-		
-		MagicMatch fileMagicMatch = Magic.getMagicMatch(file)
-		
+				
 		InputStreamContent mediaContent = new InputStreamContent(
-			fileMagicMatch.getMimeType(),
+			VIDEO_FILE_FORMAT,
 			new BufferedInputStream(
 					new ByteArrayInputStream(file)
 			)
 		)
-		mediaContent.setLength(fileMagicMatch.getLength())
 		
 		YouTube youtube = new YouTube.Builder(
 			GoogleAuth.HTTP_TRANSPORT,
@@ -150,6 +149,7 @@ class Upload {
 			Video returnedVideo = videoInsert.execute();
 			return returnedVideo.getId()
 		} catch(Exception exception) {
+			logger.debug("Youtube Upload Error: ${exception.getMessage()}")
 			return false
 		}
 	}
