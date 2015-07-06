@@ -42,6 +42,7 @@ class DiscsController {
 		if(!disc) {
 			render status: HttpStatus.NOT_FOUND
 		}
+		disc.validate()
 		if(!disc.hasErrors()){
 			if(disc.save(flush: true)){
 				render status: HttpStatus.CREATED

@@ -1,10 +1,22 @@
 cloudinary {
 	cloud{
-		name = changeme		
+		name = "musichub"		
 	}
 	api {
-		key = changeme
-		secret = changeme
+		key = "changeme"
+		secret = "changeme"
+	}
+}
+
+amazon {
+	credentials {
+		bucket {
+			name = "static-musichub"
+		}
+		access {
+			key = "changeme"
+			secret = "changeme" 
+		}
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.musichub
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.musichub.security.util.UserUtils;
 import com.musichub.util.google.services.Upload;
@@ -42,7 +43,7 @@ class PhotosController {
 				fileId: params.fileId
 			)
 		}
-
+		photo.validate()
 		if(!photo.hasErrors()) {
 			if(params.band_id) {
 				Band band = Band.get(params.int('band_id'))
@@ -61,7 +62,7 @@ class PhotosController {
 		if(!photo) {
 			render status: HttpStatus.NOT_FOUND
 		}
-
+		
 		def loggedUser = UserUtils.getLoggedUser()
 
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
@@ -75,7 +76,7 @@ class PhotosController {
 		}
 
 		Boolean isOwner = false
-		isOwner = Band.get(params.int('band_id')).photos.find { it.equals(photo) } ? true : isOwner
+		isOwner = Band.get(params.int('band_id'))?.photos.find { it.equals(photo) } ? true : isOwner
 		isOwner = loggedUser.photos.find { it.equals(photo) } ? true : isOwner
 		isOwner = loggedUser.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
 		

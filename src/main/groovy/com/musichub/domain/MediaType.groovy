@@ -7,7 +7,7 @@ abstract class MediaType {
 	static transients = ['file']
 
 	static constraints = {
-		fileId		blank:false, maxSize: 30
+		fileId		blank:false, maxSize: 50
 		file		maxSize: 1024 * 1024 * 3
 	}
 }

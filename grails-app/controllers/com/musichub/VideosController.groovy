@@ -1,13 +1,16 @@
 package com.musichub
 
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.StandardMultipartFile;
 
-import com.musichub.security.util.UserUtils;
-import com.musichub.util.cloudinary.CloudinaryUpload;
-import com.musichub.util.google.services.Upload;
+import com.musichub.security.util.UserUtils
+import com.musichub.util.amazon.s3.AmazonS3Uploader
+import com.musichub.util.cloudinary.CloudinaryUpload
+import com.musichub.util.google.services.Upload
 
-import grails.transaction.Transactional;
+import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class VideosController {
@@ -28,19 +31,25 @@ class VideosController {
 		respond video
 	}
 
+
 	@Transactional
 	def save(Video video) {
 		def loggedUser = UserUtils.getLoggedUser()
+		
+		if(!video) {
+			render status: NOT_FOUND
+		}
+		
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
+			Map uploadedFileData = AmazonS3Uploader.video(params.file)
 			video = new Video(
 				title: params.title,
 				fileId: uploadedFileData?.public_id?.toString(),
-				url: uploadedFileData?.secure_url?.toString(),
+				url: uploadedFileData?.public_url?.toString(),
 				format: uploadedFileData?.format?.toString()
 			)
 		}
-
+		video.validate()
 		if(!video.hasErrors()) {
 			if(params.band_id) {
 				Band band = Band.get(params.int('band_id'))
@@ -59,15 +68,13 @@ class VideosController {
 		if(!video) {
 			render status: NOT_FOUND
 		}
-
 		def loggedUser = UserUtils.getLoggedUser()
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			Map uploadedFileData = CloudinaryUpload.video(params.file.bytes)
-
+			Map uploadedFileData = AmazonS3Uploader.video(params.file)
 			video = new Video(
 				title: params.title,
 				fileId: uploadedFileData?.public_id?.toString(),
-				url: uploadedFileData?.secure_url?.toString(),
+				url: uploadedFileData?.public_url?.toString(),
 				format: uploadedFileData?.format?.toString()
 			)
 		}
@@ -79,6 +86,7 @@ class VideosController {
 		isOwner = loggedUser?.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
 
 		if(isOwner) {
+			video.validate()
 			if(!video.hasErrors()) {
 				video.save(flush: true)
 				render status: HttpStatus.CREATED
@@ -111,5 +119,4 @@ class VideosController {
 			respond video.errors
 		}
 	}
-
 }
