@@ -13,6 +13,7 @@ import com.musichub.security.UserDetailsServiceImpl
 import musichub.SecurityConfiguration
 
 import com.musichub.security.GoogleAuth
+import com.musichub.security.filters.CorsFilter;
 import com.musichub.util.mail.services.MailService;
 
 // Place your Spring DSL code here
@@ -21,6 +22,7 @@ beans = {
 	webSecurityConfiguration(SecurityConfiguration)
 	UserDetailsService(UserDetailsServiceImpl)
 	GoogleAuth(GoogleAuth)
+	corsFilter(CorsFilter)
 	mailSender(JavaMailSenderImpl) {
 		host = grailsApplication.config.grails.mail.sender.host
 		port = grailsApplication.config.grails.mail.sender.port
