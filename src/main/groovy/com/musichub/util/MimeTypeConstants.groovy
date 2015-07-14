@@ -83,6 +83,8 @@ final class MimeTypeConstants {
 		msi: "application/octet-stream",
 		nc: "application/x-netcdf",
 		oda: "application/oda",
+		ods: "application/vnd.oasis.opendocument.spreadsheet",
+		odt: "application/vnd.oasis.opendocument.text",
 		ogg: "application/ogg",
 		pbm: "image/x-portable-bitmap",
 		pdb: "chemical/x-pdb",
@@ -146,6 +148,8 @@ final class MimeTypeConstants {
 		vxml: "application/voicexml+xml",
 		wav: "audio/x-wav",
 		wbmp: "image/vnd.wap.wbmp",
+		weba: "audio/webm",
+		webm: "video/webm",
 		wmlc: "application/vnd.wap.wmlc",
 		wmlsc: "application/vnd.wap.wmlscriptc",
 		wmls: "text/vnd.wap.wmlscript",
@@ -164,6 +168,7 @@ final class MimeTypeConstants {
 		xul: "application/vnd.mozilla.xul+xml",
 		xwd: "image/x-xwindowdump",
 		xyz: "chemical/x-xyz",
+		yaml: "text/yaml",
 		z: "application/compress",
 		zip: "application/zip"
 	]

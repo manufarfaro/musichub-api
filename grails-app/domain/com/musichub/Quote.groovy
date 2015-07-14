@@ -19,4 +19,12 @@ class Quote {
 		fileId		blank:false, maxSize: 30
 		file		maxSize: 1024 * 1024 * 3
 	}
+
+	static namedQueries = {
+		findRandomQuotesByLimit { limit ->
+			// PSQL specific random() function
+			sqlRestriction "1=1 order by random()"
+			maxResults(limit ?: 5)
+		}
+	}
 }

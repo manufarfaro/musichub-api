@@ -90,19 +90,19 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 					HttpMethod.DELETE,
 					"/events/*",
-					"/tracks/*",
-					 "/discs/*",
 					"/postulates/*",
-					"/videos/*"
 				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_BAR')")
 
 				.antMatchers(
 					HttpMethod.DELETE,
 					"/bands/*",
+					"/tracks/*",
+					"/discs/*"
 				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ARTIST')")
 
 				.antMatchers(
 					HttpMethod.DELETE,
+					"/videos/*",
 					"/photos/*"
 				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
 

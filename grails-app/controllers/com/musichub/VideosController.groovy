@@ -1,6 +1,5 @@
 package com.musichub
 
-
 import org.springframework.http.HttpStatus
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.StandardMultipartFile;
@@ -11,6 +10,7 @@ import com.musichub.util.cloudinary.CloudinaryUpload
 import com.musichub.util.google.services.Upload
 
 import grails.transaction.Transactional
+import grails.validation.ValidationException
 
 @Transactional(readOnly = true)
 class VideosController {
@@ -31,17 +31,24 @@ class VideosController {
 		respond video
 	}
 
-
 	@Transactional
 	def save(Video video) {
 		def loggedUser = UserUtils.getLoggedUser()
-		
+
 		if(!video) {
 			render status: NOT_FOUND
 		}
-		
+
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			Map uploadedFileData = AmazonS3Uploader.video(params.file)
+			Map uploadedFileData
+			try { 
+				uploadedFileData = AmazonS3Uploader.video(params.file, video)
+			} catch (ValidationException exception) {
+				render (
+					status: HttpStatus.UNPROCESSABLE_ENTITY, 
+					message: 'El video que intentás subir es incorrecto, solo el formato de video webm es soportado.'  
+				)
+			}
 			video = new Video(
 				title: params.title,
 				fileId: uploadedFileData?.public_id?.toString(),
@@ -70,7 +77,15 @@ class VideosController {
 		}
 		def loggedUser = UserUtils.getLoggedUser()
 		if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-			Map uploadedFileData = AmazonS3Uploader.video(params.file)
+			try { 
+				Map uploadedFileData = AmazonS3Uploader.video(params.file, video)
+			} catch (ValidationException exception) {
+				video.errors.reject(
+					'video.file.doesnotmatch',
+					['file', 'class Video'] as Object[],
+					'[Property [{0}] of class [{1}] contains an invalid format, only webm is supported.]'
+				)
+			}
 			video = new Video(
 				title: params.title,
 				fileId: uploadedFileData?.public_id?.toString(),
@@ -82,7 +97,7 @@ class VideosController {
 		Boolean isOwner = false
 
 		isOwner = Band.get(params.int('band_id'))?.videos.find { it.equals(video) } ? true : isOwner
-		isOwner = loggedUser?.videos.find { it.equals(video) } ? true : isOwner
+		isOwner = loggedUser?.videos?.find { it.equals(video) } ? true : isOwner
 		isOwner = loggedUser?.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
 
 		if(isOwner) {
@@ -96,7 +111,6 @@ class VideosController {
 		} else {
 			render status: HttpStatus.FORBIDDEN
 		}
-		
 	}
 
 	@Transactional
@@ -113,6 +127,7 @@ class VideosController {
 				band.removeFromVideos(video)
 			} else {
 				loggedUser.removeFromVideos(video)
+				println loggedUser.videos
 			}
 			render status: HttpStatus.NO_CONTENT
 		} else {

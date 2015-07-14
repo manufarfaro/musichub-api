@@ -7,11 +7,12 @@ class UrlMappings {
 //            }
 //        }
 		group "/quotes", {
-			"/"		(controller: "quotes", action: "index", method: "GET")
-			"/$id"	(controller: "quotes", action: "show", method: "GET")
-			"/"		(controller: "quotes", action: "save", method: "POST")
-			"/$id"	(controller: "quotes", action: "update", method: "PUT")
-			"/$id"	(controller: "quotes", action: "delete", method: "DELETE")
+			"/"			(controller: "quotes", action: "index", method: "GET")
+			"/$id"		(controller: "quotes", action: "show", method: "GET")
+			"/random"	(controller: "quotes", action: "random", method: "GET")
+			"/"			(controller: "quotes", action: "save", method: "POST")
+			"/$id"		(controller: "quotes", action: "update", method: "PUT")
+			"/$id"		(controller: "quotes", action: "delete", method: "DELETE")
 		}
 
 		group "/countries", {
