@@ -10,6 +10,7 @@ grails-app/conf/credentials/musichub-api-google.pem
 
 # Ignore new changes - You have to force them (--force)
 grails-app/conf/application.yml
+grails-app/conf/application.groovy
 
 # web application files
 /web-app/WEB-INF/classes
