@@ -39,6 +39,29 @@ class BarDataGenerator {
 		this.addVideos(barRustico)
 		this.addEvents(barRustico)
 		this.addPostulations(barRustico)
+		
+		Bar barTheVomit = new Bar (
+			username:		'vomitobar',
+			description:	'A space to enjoy and share the greatest gastronomic experiences.',
+			address:		'209 Larkin St',
+			phone:			'8453-3248',
+			googlePlusId:	'+thevomitrestobar',
+			facebookId:		'thevomitrestobar',
+			password:		'vomit123',
+			email:			'thevomitrestobar@gmail.com',
+			name:			'The Vomit Bar',
+			enabled:		true
+		).save(flush: true)
+
+		UserRole userRole1c = new UserRole(
+			user: barTheVomit,
+			role: Role.findByAuthority('ROLE_BAR')
+		).save(flush: true)
+		
+		this.addPhotosTheVomitBar(barTheVomit)
+		this.addVideosTheVomitBar(barTheVomit)
+		//this.addEventsTheVomitBar(barTheVomit)
+		this.addPostulationsTheVomitBar(barTheVomit)
 	}
 
 	protected static void addEvents(Bar bar) {
@@ -101,4 +124,61 @@ class BarDataGenerator {
 		)
 		bar.addToPostulations(postulationRustico).save(flush: true)
 	}
+	
+	protected static void addEventsTheVomitBar(Bar bar) {
+		
+				Photo flyerChuckEventVomitA1 = new Photo (
+					title: 'flyer chuck in the vomit',
+					fileId: '0B7q228Dq2WUubDREUmVkZzMwQ0E'
+				).save(flush:true)
+		
+				Event chuckEventVomitA1 = new Event (
+					name: 'ChuckNorris in the vomit Bar',
+					date: formatter.parse('10/04/2011'),
+					text: '01/09 ChuckNorris in the vomit presenting his new album Nice with you, Jazz festival. Tickets at door $50.',
+					url: 'https://facebook.com/thevomitrestobar',
+					photo: flyerChuckEventVomitA1,
+					bar: bar
+				)
+				
+				bar.addToEvents(chuckEventVomitA1).save(flush: true)
+			}
+			
+	protected static void addPhotosTheVomitBar(Bar bar) {
+
+		Photo photoVomitA1 = new Photo (
+			title: 	'bar vomit',
+			fileId: '0B7q228Dq2WUuQWlMVWlEMnZUY2s'
+		)
+
+		Photo photoVomitA2 = new Photo (
+			title: 	'bar2 vomit',
+			fileId: '0B7q228Dq2WUuSVZSVlNaVnZURGs'
+		)		
+
+		bar
+			.addToPhotos(photoVomitA1)
+			.addToPhotos(photoVomitA2)					
+			.save(flush:true)
+	}		
+
+	protected static void addVideosTheVomitBar(Bar bar) {
+		
+		Video nyanCatVideoVomit = new Video (
+			title: 'nyan Cat vomit',
+			fileId: 'QH2-TGUlwu4'
+		)
+
+		bar.addToVideos(nyanCatVideoVomit).save(flush:true)
+	}
+			
+	protected static void addPostulationsTheVomitBar(Bar bar) {
+		
+		Postulate postulationTheVomit = new Postulate(
+			title:	'The Vomit looking event opening for 04/12',
+			text:	'The Vomit bar bands Trash / Hardcore style for \"hardcore festival vol. IV \" to interested please contact us at hardcoreenventarg@yahoo.com.ar. The Vomit Bar.',
+		)
+		bar.addToPostulations(postulationTheVomit).save(flush: true)
+	}
+		
 }
