@@ -64,8 +64,10 @@ class DiscsController {
 
 		Boolean isOwner = false
 		isOwner = disc.artist.equals(loggedUser) ? true : isOwner
-		isOwner = loggedUser.bands.find { it.equals(disc.band) } ? true : isOwner
+		isOwner = disc.band?.leader.equals(loggedUser) ? true : isOwner
 		isOwner = loggedUser.authorities.find { it.equals('ROLE_ADMIN') } ? true : isOwner
+
+		disc.validate()
 
 		if (isOwner) {
 			if (disc.hasErrors()){

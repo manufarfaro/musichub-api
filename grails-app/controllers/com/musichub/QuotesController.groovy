@@ -86,4 +86,9 @@ class QuotesController {
 			}
 		}
 	}
+
+	def random(Integer limit) {
+		respond Quote.findRandomQuotesByLimit(limit ?: 5).list()
+	}
+
 }

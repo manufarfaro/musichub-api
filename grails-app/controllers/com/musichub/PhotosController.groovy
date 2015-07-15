@@ -77,7 +77,7 @@ class PhotosController {
 
 		Boolean isOwner = false
 		isOwner = Band.get(params.int('band_id'))?.photos.find { it.equals(photo) } ? true : isOwner
-		isOwner = loggedUser.photos.find { it.equals(photo) } ? true : isOwner
+		isOwner = loggedUser.photos?.find { it.equals(photo) } ? true : isOwner
 		isOwner = loggedUser.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
 		
 		photo.validate()

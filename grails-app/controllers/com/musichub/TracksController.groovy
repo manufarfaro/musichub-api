@@ -100,8 +100,8 @@ class TracksController {
 		def loggedUser = UserUtils.getLoggedUser()
 		
 		Boolean isOwner = false
-		isOwner = track.disc.artist.equals(loggedUser) ? true : isOwner
-		isOwner = loggedUser.bands.find { it.equals(track.disc.band) } ? true : isOwner
+		isOwner = track.disc.artist?.equals(loggedUser) ? true : isOwner
+		isOwner = loggedUser.bands?.find { it.equals(track.disc.band) } ? true : isOwner
 		isOwner = loggedUser.authorities.find { it.equals('ROLE_ADMIN') } ? true : isOwner
 		
 		if(isOwner) {
