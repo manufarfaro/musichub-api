@@ -62,3 +62,4 @@ grails-app/assets/fonts/font-awesome/
 .settings/
 musichub-api.iml
 
+grails-app/conf/application.groovy
