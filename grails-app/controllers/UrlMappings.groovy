@@ -55,7 +55,7 @@ class UrlMappings {
 			"/register/"				(controller: "users", action: "register", method: "POST")
 			"/resetPassword/$id"		(controller: "users", action: "resetPassword", method: "POST")
 			"/confirmToken/$token"		(controller: "users", action: "confirmResetPasswordToken", method: "POST")
-			"/changePassword/$id"		(controller: "users", action: "changePassword", method: "POST")
+			"/changePassword/"		(controller: "users", action: "changePassword", method: "POST")
 		}
 
 		group "/tracks", {

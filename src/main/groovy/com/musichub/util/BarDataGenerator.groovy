@@ -60,7 +60,7 @@ class BarDataGenerator {
 		
 		this.addPhotosTheVomitBar(barTheVomit)
 		this.addVideosTheVomitBar(barTheVomit)
-		//this.addEventsTheVomitBar(barTheVomit)
+		this.addEventsTheVomitBar(barTheVomit)
 		this.addPostulationsTheVomitBar(barTheVomit)
 	}
 

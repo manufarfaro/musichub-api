@@ -1,4 +1,5 @@
 import org.springframework.mail.javamail.JavaMailSenderImpl
+import org.springframework.web.servlet.i18n.SessionLocaleResolver
 
 import grails.rest.render.json.JsonRenderer
 import grails.rest.render.xml.XmlRenderer
@@ -19,6 +20,10 @@ import com.musichub.util.mail.services.MailService;
 // Place your Spring DSL code here
 beans = {
 	grailsApplication = ref('grailsApplication')
+	localeResolver(SessionLocaleResolver) {
+		defaultLocale = new Locale("es","ES")
+		java.util.Locale.setDefault(defaultLocale)
+	}
 	webSecurityConfiguration(SecurityConfiguration)
 	UserDetailsService(UserDetailsServiceImpl)
 	GoogleAuth(GoogleAuth)

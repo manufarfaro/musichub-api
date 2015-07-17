@@ -2,30 +2,31 @@ package com.musichub.util
 
 import com.musichub.Artist
 import com.musichub.Band
-import com.musichub.Bar;
-import com.musichub.Disc;
-import com.musichub.Photo;
-import com.musichub.Track;
-import com.musichub.Video;
+import com.musichub.Bar
+import com.musichub.Disc
+import com.musichub.Photo
+import com.musichub.Track
+import com.musichub.Video
 
 class BandDataGenerator {
 	public static void generate() {
 		Artist artistChuckNorris = Artist.findByUsername("chucknorris")
 		
-		Band chuckyband = new Band(
-			name:	'Chucky the band',
-			slug:	'chuckyandtheband',
-			email:	'chucknorris@gmail.com',
-			leader: artistChuckNorris,
-			bio: 'Somos una banda de zona sur, hacemos rock, pop, blues y algo de salsa.',
-			googlePlusId: '+chucknorris',
-			facebookId: 'chuck.norris'
-		).addToArtists(artistChuckNorris)
-		.save(flush: true)
+//		Band chuckyband = new Band(
+//			name:	'Chucky the band',
+//			slug:	'chuckyandtheband',
+//			email:	'chucknorris@gmail.com',
+//			leader: artistChuckNorris,
+//			bio: 'Somos una banda de zona sur, hacemos rock, pop, blues y algo de salsa.',
+//			googlePlusId: '+chucknorris',
+//			facebookId: 'chuck.norris'
+//		).addToArtists(artistChuckNorris)
+//		println(chuckyband.validate())
+//		chuckyband.save(flush: true)
 
-		this.addPhotos(chuckyband)
-		this.addDiscs(chuckyband)
-		this.addVideos(chuckyband)
+//		this.addPhotos(chuckyband)
+//		this.addDiscs(chuckyband)
+//		this.addVideos(chuckyband)
 		
 		Artist artistMadMax = Artist.findByUsername("themadmax")
 		
@@ -34,17 +35,17 @@ class BandDataGenerator {
 			slug:	'madmaxtheband',
 			email:	'madmax@gmail.com',
 			leader: artistMadMax,
-			bio: 'We\'re a band from California, we hardrock & blues.',
+			bio: 'We are a band from California, we hardrock & blues.',
 			googlePlusId: '+madmax',
 			facebookId: 'mad.max'
 		).addToArtists(artistMadMax)
 		
 		.save(flush: true)
 
-		this.addPhotosMadBand(madmaxband)
-		this.addVideosMadBand(madmaxband)
-		this.addDiscsMadBand(madmaxband)
-		this.addMembersMadMaxBand(madmaxband)		
+//		this.addPhotosMadBand(madmaxband)
+//		this.addVideosMadBand(madmaxband)
+//		this.addDiscsMadBand(madmaxband)
+//		this.addMembersMadMaxBand(madmaxband)		
 	}
 	
 	protected static void addPhotos(Band band) {

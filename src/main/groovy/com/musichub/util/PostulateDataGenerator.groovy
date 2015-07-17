@@ -3,6 +3,7 @@ package com.musichub.util
 import java.text.SimpleDateFormat;
 
 import com.musichub.Artist;
+import com.musichub.Bar;
 import com.musichub.Postulate;
 
 class PostulateDataGenerator {
@@ -11,8 +12,9 @@ class PostulateDataGenerator {
 
 	public static void generate() {
 		Artist artistChuckNorris = Artist.findByUsername('chucknorris')
+		Bar barVomito = Bar.findByUsername('vomitobar')
 		this.addArtistsPostulated(artistChuckNorris)
-		this.addArtistsPostulatedVomit(artistChuckNorris)
+		this.addBarsPostulatedVomit(barVomito)
 	}
 
 	protected static void addArtistsPostulated(Artist artist) {
@@ -23,8 +25,8 @@ class PostulateDataGenerator {
 			).save(flush: true)
 	}	
 
-	protected static void addArtistsPostulatedVomit(Artist artist) {
-		artist
+	protected static void addBarsPostulatedVomit(Bar bar) {
+		bar
 			.addToPostulated(
 				Postulate.
 					findByTitle('The Vomit looking event opening for 04/12')

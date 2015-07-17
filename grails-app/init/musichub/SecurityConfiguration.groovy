@@ -55,7 +55,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(
 					HttpMethod.GET,
-					"/users/*",
 					"/tracks/*",
 					"/discs/*",
 					"/bands/*",
@@ -138,6 +137,18 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					HttpMethod.PUT,
 					"/photos/*"
 				).access("hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
+
+				.antMatchers(
+					HttpMethod.POST,
+					"/users/register",
+					"/resetPassword/*",
+					"/confirmToken/*"
+				).permitAll()
+
+				.antMatchers(
+					HttpMethod.POST,
+					"/users/changePassword"
+				).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ARTIST') or hasRole('ROLE_BAR')")
 
 				.antMatchers(
 					HttpMethod.POST,
