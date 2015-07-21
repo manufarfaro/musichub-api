@@ -14,7 +14,7 @@ class PostulateDataGenerator {
 		Artist artistChuckNorris = Artist.findByUsername('chucknorris')
 		Bar barVomito = Bar.findByUsername('vomitobar')
 		this.addArtistsPostulated(artistChuckNorris)
-		this.addBarsPostulatedVomit(barVomito)
+		//this.addBarsPostulatedVomit(barVomito)
 	}
 
 	protected static void addArtistsPostulated(Artist artist) {

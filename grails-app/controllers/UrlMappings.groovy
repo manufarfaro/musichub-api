@@ -62,6 +62,7 @@ class UrlMappings {
 			"/"				(controller: "tracks", action: "index", method: "GET")
 			"/$id"			(controller: "tracks", action: "show", method: "GET")
 			"/random"		(controller: "tracks", action: "random", method: "GET")
+			"/"				(controller: "tracks", action: "save", method: "POST")
 			"/$id"			(controller: "tracks", action: "update", method: "PUT")
 			"/$id"			(controller: "tracks", action: "delete", method: "DELETE")
 		}
