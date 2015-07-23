@@ -96,7 +96,9 @@ class PhotosController {
 
 	@Transactional
 	def delete(Photo photo) {
-		photo = Photo.get(params.int('photo_id'))
+		if(params.photo_id){
+			photo = Photo.get(params.int('photo_id'))
+		}
 		if(!photo) {
 			render status: HttpStatus.NOT_FOUND
 		}
