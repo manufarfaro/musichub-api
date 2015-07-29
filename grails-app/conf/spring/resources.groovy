@@ -47,15 +47,15 @@ beans = {
 		bean.factoryMethod = 'getInstance'
 	}
 	mhUserRenderer(JsonRenderer, MHUser) {
-		excludes = ['password', 'class', 'passwordResetToken']
+		excludes = ['password', 'passwordResetToken']
 	}
 	artistRenderer(JsonRenderer, Artist) {
-		excludes = ['password', 'class', 'passwordResetToken']
+		excludes = ['password', 'passwordResetToken']
 	}
 	barRenderer(JsonRenderer, Bar) {
-		excludes = ['password', 'class', 'passwordResetToken']
+		excludes = ['password', 'passwordResetToken']
 	}
 	bandRenderer(JsonRenderer, Band) {
-		excludes = ['class']
+		excludes = []
 	}
 }

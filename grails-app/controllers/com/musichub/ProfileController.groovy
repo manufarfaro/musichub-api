@@ -31,6 +31,7 @@ class ProfileController {
 	def update() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy")
 		def loggedUser = UserUtils.getLoggedUser()
+		println(params);
 		if(loggedUser) {
 			if (loggedUser.class.equals(Artist)) {
 				loggedUser.setBio(params.bio ?: loggedUser.bio)
@@ -51,6 +52,7 @@ class ProfileController {
 			loggedUser.setFacebookId(params.facebookId ?: loggedUser.facebookId)
 			loggedUser.setTwitterId(params.twitterId ?: loggedUser.twitterId)
 			loggedUser.setWebsite(params.website ?: loggedUser.website)
+			loggedUser.validate();
 			if(!loggedUser.hasErrors()){
 				loggedUser.save(flush: true)
 				render status: HttpStatus.CREATED
