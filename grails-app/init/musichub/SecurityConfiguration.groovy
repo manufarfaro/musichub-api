@@ -116,7 +116,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 					HttpMethod.PUT,
-					"/profile/*",
+					"/profile/",
 					"/postulates/*",
 					"/tracks/*",
 					"/discs/*",
