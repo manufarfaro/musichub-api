@@ -2,6 +2,7 @@ package com.musichub
 
 
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 import grails.transaction.Transactional;
 
@@ -38,7 +39,11 @@ class ProfileController {
 				loggedUser.setLastname(params.lastname ?: loggedUser.lastname)
 				loggedUser.setGender(params.gender ?: loggedUser.gender)
 				loggedUser.setRegion(params.int('region') ? Country.get(params.region) : loggedUser.region)
-				loggedUser.setBirthdate(params.birthdate ? formatter.parse(params.birthdate) : loggedUser.birthdate)
+				try {
+					loggedUser.setBirthdate(params.birthdate ? formatter.parse(params.birthdate) : loggedUser.birthdate)					
+				} catch (ParseException e) {
+					loggedUser.setBirthdate(loggedUser.birthdate)
+				}
 				loggedUser.setCodePhone(params.codePhone ?: loggedUser.codePhone)
 			}
 			if(loggedUser.class.equals(Bar)) {
