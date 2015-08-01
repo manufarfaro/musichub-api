@@ -28,13 +28,34 @@ class DiscsController {
 	
 	@Transactional
 	def save(Disc disc) {
-		if(!disc.hasErrors()){
-			if(disc.save(flush: true)){
-				render status: HttpStatus.CREATED
+		HttpStatus status = HttpStatus.FORBIDDEN
+		Artist loggedUser = UserUtils.getLoggedUser()
+		println "++++++++ loggedUser: ${loggedUser}"		
+		if(loggedUser.class.equals(Artist)){
+			println "++++++++ loggedUser: ${loggedUser.class.equals(Artist)}"
+			if(!disc.hasErrors()){
+				loggerUser.addToDiscs(disc)
+				if(disc.save(flush: true)){
+					render status: HttpStatus.CREATED
+				} else {
+					respond disc.errors
+				}			
+			}else {
+				respond disc.errors
+			}	
+		}
+		if(loggedUser.authorities.find { it == 'ROLE_ADMIN' } ){
+			if (!disc.hasErrors){
+				if(disc.save(flush: true)){
+					status = HttpStatus.CREATED
+				} else {
+					respond disc.errors
+				}
 			} else {
 				respond disc.errors
-			}			
+			}
 		}
+		render status: status
 	}
 	
 	@Transactional
