@@ -28,22 +28,26 @@ class DiscsController {
 	
 	@Transactional
 	def save(Disc disc) {
-		HttpStatus status = HttpStatus.FORBIDDEN
-		Artist loggedUser = UserUtils.getLoggedUser()
-		println "++++++++ loggedUser: ${loggedUser}"		
-		if(loggedUser.class.equals(Artist)){
-			println "++++++++ loggedUser: ${loggedUser.class.equals(Artist)}"
-			if(!disc.hasErrors()){
-				loggerUser.addToDiscs(disc)
-				if(disc.save(flush: true)){
-					render status: HttpStatus.CREATED
-				} else {
-					respond disc.errors
-				}			
-			}else {
-				respond disc.errors
-			}	
+
+		if(!disc) {
+			render status: HttpStatus.NOT_FOUND
 		}
+
+		def loggedUser = UserUtils.getLoggedUser()
+
+		disc.validate()
+		if(!disc.hasErrors()) {
+			if(params.band_id) {
+				Band band = Band.get(params.int('band_id'))
+				band.addToDiscs(disc).save(flush: true)
+			} else {
+				loggedUser.addToDiscs(disc).save(flush: true)
+			}
+			render status: HttpStatus.CREATED
+		} else {
+			render disc.errors
+		}
+
 		if(loggedUser.authorities.find { it == 'ROLE_ADMIN' } ){
 			if (!disc.hasErrors){
 				if(disc.save(flush: true)){
@@ -63,15 +67,24 @@ class DiscsController {
 		if(!disc) {
 			render status: HttpStatus.NOT_FOUND
 		}
+
+		def loggedUser = UserUtils.getLoggedUser()
+
+		Boolean isOwner = false
+		isOwner = Band.get(params.int('band_id'))?.discs.find { it.equals(disc) } ? true : isOwner
+		isOwner = loggedUser.discs?.find { it.equals(disc) } ? true : isOwner
+		isOwner = loggedUser.authorities.find{ it.equals('ROLE_ADMIN') } ? true : isOwner
+
 		disc.validate()
-		if(!disc.hasErrors()){
-			if(disc.save(flush: true)){
+		if(isOwner) {
+			if(!disc.hasErrors()) {
+				disc.save(flush:true)
 				render status: HttpStatus.CREATED
 			} else {
-				respond disc.errors
+				render disc.errors
 			}
 		} else {
-			respond disc.errors
+			render status: HttpStatus.FORBIDDEN
 		}
 	}
 	
@@ -92,7 +105,7 @@ class DiscsController {
 
 		if (isOwner) {
 			if (disc.hasErrors()){
-				respond country.errors
+				respond disc.errors
 			} else {
 				disc.delete(flush: true)
 				render status: HttpStatus.NO_CONTENT
