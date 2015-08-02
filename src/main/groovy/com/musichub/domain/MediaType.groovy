@@ -8,6 +8,6 @@ abstract class MediaType {
 
 	static constraints = {
 		fileId		blank:false, maxSize: 50
-		file		maxSize: 1024 * 1024 * 3
+		file		maxSize: 1024 * 1024 * 23
 	}
 }
