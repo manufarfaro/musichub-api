@@ -1,17 +1,21 @@
 package com.musichub
 
 import org.springframework.http.HttpStatus
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.StandardMultipartFile;
 
 import com.musichub.security.util.UserUtils;
-
 import com.gs.collections.impl.block.factory.StringFunctions.ToIntegerFunction;
+import com.musichub.util.amazon.s3.AmazonS3Uploader;
 import com.musichub.util.google.services.Upload;
 
 import grails.transaction.Transactional
+import grails.validation.ValidationException
 
 @Transactional(readOnly = true)
 class TracksController {
-	static responseFormats = ['json', 'xml']
+	static requestFormats = ['json', 'xml', 'multipartForm', 'html']
+	static responseFormats = ['json', 'xml', 'multipartForm', 'html']
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
@@ -54,6 +58,7 @@ class TracksController {
 
 	@Transactional
 	def save(Track track) {
+
 		if(!track) {
 			render status: HttpStatus.NOT_FOUND
 		}
@@ -62,28 +67,38 @@ class TracksController {
 
 		Boolean isOwner = false
 		Disc disc = Disc.get(params.int('disc_id'))
-
 		if (disc) {
-			isOwner = disc.artist.equals(loggedUser) ? true : isOwner
+			isOwner = disc.artist?.equals(loggedUser) ? true : isOwner
 			isOwner = loggedUser.bands.find { it.equals(disc.band) } ? true : isOwner
 			isOwner = loggedUser.authorities.find { it.equals('ROLE_ADMIN') } ? true : isOwner
 			if(isOwner) {
 				
 				if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-					String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifldubUdTNXE3LW1ybC1tQ01fWjdRSjJ0TmNMWG9henEwel9rNGxuRHJwSkU")
-					params.fileId = uploadedFileId
-						
+					Map uploadedFileData
+					try {
+						uploadedFileData = AmazonS3Uploader.track(params.file, track)
+					} catch (ValidationException exception) {
+						render (
+							status: HttpStatus.UNPROCESSABLE_ENTITY,
+							message: 'El audio que intentás subir es incorrecto, solo los formatos de audio mp3 y ogg son soportados.'
+						)
+					}
 					track = new Track(
-						title: params.title,
-						fileId: params.fileId
+						name: params.name,
+						fileId: uploadedFileData?.public_id?.toString(),
+						orderNbr: params.orderNbr, 
+						url: uploadedFileData?.public_url?.toString(),
+						format: uploadedFileData?.format?.toString()
 					)
 				}
-				
+				track.disc = disc
+				track.validate()
 				if (!track.hasErrors()){
-					disc.addToTracks(track).save(flush: true)
+					track.disc = disc
+					track.save(flush:true) 
 					render status: HttpStatus.CREATED
 				} else {
-					respond track.errors
+					respond track
 				}
 			} else {
 				render status: HttpStatus.FORBIDDEN
@@ -109,12 +124,21 @@ class TracksController {
 		if(isOwner) {
 
 			if (!params.fileId && params.file && params.file?.bytes.size() > 0) {
-				String uploadedFileId = Upload.getInstance().toDrive(params.file.bytes, "0B3pR1yPz3ddifldubUdTNXE3LW1ybC1tQ01fWjdRSjJ0TmNMWG9henEwel9rNGxuRHJwSkU")
-				params.fileId = uploadedFileId
-					
+				Map uploadedFileData
+				try {
+					uploadedFileData = AmazonS3Uploader.track(params.file, track)
+				} catch (ValidationException exception) {
+					render (
+						status: HttpStatus.UNPROCESSABLE_ENTITY,
+						message: 'El audio que intentás subir es incorrecto, solo los formatos de audio mp3 y ogg son soportados.'
+					)
+				}
 				track = new Track(
-					title: params.title,
-					fileId: params.fileId
+					name: params.name,
+					fileId: uploadedFileData?.public_id?.toString(),
+					orderNbr: params.orderNbr, 
+					url: uploadedFileData?.public_url?.toString(),
+					format: uploadedFileData?.format?.toString()
 				)
 			}
 

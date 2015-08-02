@@ -15,7 +15,8 @@ import grails.validation.ValidationException
 @Transactional(readOnly = true)
 class VideosController {
 
-	static responseFormats = ['json', 'xml']
+	static requestFormats = ['json', 'xml', 'multipartForm', 'html']
+	static responseFormats = ['json', 'xml', 'multipartForm', 'html']
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)

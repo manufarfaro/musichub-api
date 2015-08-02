@@ -9,6 +9,8 @@ class Track extends MediaType{
 	String name
 	Integer orderNbr
 	Disc disc
+	String format
+	String url
 
 	static belongsTo = [Disc]
 
@@ -19,6 +21,8 @@ class Track extends MediaType{
 	static constraints = {
 		name	blank: false, minSize: 2, maxSize: 30
 		orderNbr	nullable: true, unique: false
+		format	nullable: true, maxSize: 30
+		url		nullable: true, blank: true, maxSize: 400
 	}
 	
 	static namedQueries = {
