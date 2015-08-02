@@ -51,7 +51,7 @@ class DiscsController {
 		if(loggedUser.authorities.find { it == 'ROLE_ADMIN' } ){
 			if (!disc.hasErrors){
 				if(disc.save(flush: true)){
-					status = HttpStatus.CREATED
+					render status: HttpStatus.CREATED
 				} else {
 					respond disc.errors
 				}
@@ -59,7 +59,6 @@ class DiscsController {
 				respond disc.errors
 			}
 		}
-		render status: status
 	}
 	
 	@Transactional
