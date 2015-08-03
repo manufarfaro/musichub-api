@@ -18,7 +18,7 @@ class CorsFilter extends OncePerRequestFilter {
 
 		if (options) {
 			if (origin == null) return;
-			resp.addHeader("Access-Control-Allow-Headers", "origin, authorization, accept, content-type, x-requested-with")
+			resp.addHeader("Access-Control-Allow-Headers", "origin, authorization, accept, content-type, x-requested-with, X-XSRF-TOKEN")
 			resp.addHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS")
 			resp.addHeader("Access-Control-Max-Age", "3600")
 		}

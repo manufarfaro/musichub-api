@@ -25,6 +25,7 @@ class ArtistsController {
 			or {
 				eq('id', params.long('id'))
 				eq('slug', params.id)
+				eq('username', params.id)
 			}
 			maxResults 1
 		}[0]

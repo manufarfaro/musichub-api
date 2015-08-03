@@ -12,7 +12,7 @@ class Video extends MediaType{
 
 	static constraints = {
 		title	blank: false, minSize: 2, maxSize: 30
-		format	nullable: true, maxSize: 30
+		format	nullable: true, maxSize: 50
 		url		nullable: true, blank: true, maxSize: 400
 	}
 

@@ -21,7 +21,7 @@ class Track extends MediaType{
 	static constraints = {
 		name	blank: false, minSize: 2, maxSize: 30
 		orderNbr	nullable: true, unique: false
-		format	nullable: true, maxSize: 30
+		format	nullable: true, maxSize: 50
 		url		nullable: true, blank: true, maxSize: 400
 	}
 	
