@@ -33,10 +33,10 @@ class PostulatesController {
 
 		def loggedUser = UserUtils.getLoggedUser()
 
-		if (postulate.offerer.class.equals(Artist) || postulate.offerer.class.equals(Bar)) {
+		if (loggedUser.class.equals(Artist) || loggedUser.class.equals(Bar)) {
 			postulate.offerer = loggedUser			
 		}
-
+		postulate.validate()
 		if (!postulate.hasErrors()) {
 				postulate.save(flush: true)
 				render status: HttpStatus.CREATED
