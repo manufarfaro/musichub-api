@@ -16,18 +16,21 @@ class CsrfHeaderFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 		HttpServletResponse response, FilterChain filterChain)
 		throws ServletException, IOException {
+	  /* Workaround to make things work!
 	  CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
 		  .getName());
 	  if (csrf != null) {
 		Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
 		String token = csrf.getToken();
 		if (cookie==null || token!=null && !token.equals(cookie.getValue())) {
-		  cookie = new Cookie("XSRF-TOKEN", token);
-		  cookie.setPath("/");
-		  response.addCookie(cookie);
+		  cookie = new Cookie("XSRF-TOKEN", token)
+		  cookie.setPath("/")
+		  cookie.setHttpOnly(false)
+		  response.addCookie(cookie)
 		}
 	  }
 	  filterChain.doFilter(request, response);
+	  */
 	}
 
 }

@@ -42,10 +42,10 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
-			.csrf()
-			.csrfTokenRepository(csrfTokenRepository())
-			.and()
-				.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+			.csrf().disable()
+			//.csrfTokenRepository(csrfTokenRepository())
+			//.and()
+			//	.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 		http
 			.userDetailsService(userDetailsService)
 			.httpBasic()
